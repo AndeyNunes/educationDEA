@@ -1,0 +1,274 @@
+---
+title: 'ETM 540 Group Project'
+author:
+- Samira Akther  
+- Jordan Hilton
+- Andey Nunes
+- Aparna Raghuram
+- Mohammed Sheikh
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+output: pdf_document
+---
+```{r setup, warning=FALSE, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+#library(magrittr, quietly = TRUE) #Used for pipes/dplyr
+#library(dplyr, quietly = TRUE)
+library(tidyverse, quietly = TRUE)
+library(ROI, quietly = TRUE)
+library(ROI.plugin.glpk, quietly = TRUE)
+library(ompr, quietly = TRUE)
+library(ompr.roi, quietly = TRUE)
+library(pander, quietly = TRUE)
+library(Benchmarking, quietly = TRUE)
+library(rDEA, quietly = TRUE)
+#library(reshape2, quietly = TRUE)
+library(MultiplierDEA)
+library(ggthemes)
+library(corrplot)
+#library(ggplotify)
+#library(plotly)
+```
+
+# Efficiency of Public Expenditure on Education
+
+In this section, the paper aims to study the efficiency of the public expenditures on education of OECD (Organization for Economic Development) countries. DEA (Data Envelopement Analysis), which is a vastly used tool for measuring efficiency, has been used to measure the efficiency of the public expenditures on education by the countries.The analysis provides an efficient frontier which is a linear combination of the data point with efficiency scores of 1. The analysis also allows us to know possible reduction in the inputs to generate the output of the countries with scores less than 1. 
+
+## Optimization Model Definition
+
+In our paper, we used input oriented model. Here, only one input is considered and defined as $x_{i,j}$ to  be the amount of the _i_'th input used by unit _j_ . Here j is the country we are analysing. Two outputs have been considered and defined as  $y_{r,j}$ to be the amount of the _r_'th output produced by unit _j_. n is the number of countries we analysed.  
+
+The following optimization model has been solved to obtain the efficiency score while minimizing the value of 
+
+
+$$
+ \begin{split}
+ \begin{aligned}
+ \text{Min  }   & \theta\\
+  \text{subject to }\ & \sum_{j=1}^{n} x_{i,j}\lambda_j \leq x_{i,k} \forall \; i & i=1 ,\ldots, n\\
+                      & \sum_{j=1}^{N^D} y_{r,j}\lambda_j \geq  y_{r,k} \forall \; r & j=1 ,\ldots, r&\\
+                      & \lambda_j \geq 0  \; \forall \; j
+  \end{aligned}
+  \end{split}
+$$
+
+Here, Theta provides the efficiency scores of the countries we analyzed. The country with score of 1 lies in the efficient frontier and shows that any input reduction is not possible for generating the output. The countries with scores less than 1 will be considered as inefficient within the efficient frontier. Vector Lambda he specific amount of a unit _j_ used in setting the target for for performance for unit _k_.
+
+## Data Description
+
+Data has been obtained from secondary sources. Data on PISA scores were obtained from OECD website. Data on public education expenditures as percentage of GDP were obtained from UNESCO website. We considered 36 countries of OECD. The input variable is the public education spending as percentage of GDP of all 36 countries for the year of 2015. The output variables are the average PISA score of all 36 countries and the graduation rates for the year of 2015. 
+
+Here is a summary of the data.
+
+
+```{r load}
+## load our data, downloaded from the google sheet
+data <- read.csv("OECDdata.csv")
+
+summary(data)
+```
+
+It appears that all but the first seven variables were read in as factors and not numeric values. Also, we can see that there are three observations missing from several of the population education level fields and three zero values for `Total.Spending`. These may need to be excluded from the analysis.
+
+
+```{r data cleaning}
+# convert factors to numeric
+data$Primary.education <- as.numeric(data$Primary.education)
+data$Secondary.education <- as.numeric(data$Secondary.education)
+data$Tertiary.education <- as.numeric(data$Tertiary.education)
+data$Total.Spending <- as.numeric(data$Total.Spending)
+data$Tertiary.Graduation.Rate <- as.numeric(data$Tertiary.Graduation.Rate)
+data$Bachelors.Graduation.rates <- as.numeric(data$Bachelors.Graduation.rates)
+data$Doctorates <- as.numeric(data$Doctorates)
+
+# create a spending as a percentage of GDP value
+data$spendingPctGDP <- data$Total.Spending/data$GDP*100
+```
+
+Other exploratory data information (such as correlations between numerical variables?) is included in the appendix.
+
+# DEA Model
+## Part A: Single input, single output
+
+For this first part, we will set up and solve a DEA model using the single GDP data point for the input and the aggregated test score average for the single output.
+
+Run a DEA with a single input (total education spending) and a single output (Average PISA score)
+```{r run single dea}
+#this is single input and single output
+x1 <- data %>% select(Total.Spending) ## input
+x2 <- data %>% select(spendingPctGDP) ## ratio input used in next section
+y <- data %>% select(AveragePISA) ## output
+row.names(x1) <- data[,1]
+row.names(y) <- data[,1]
+
+
+ressingle <- DeaMultiplierModel(x1, y, rts = "crs", orientation = "output")
+
+efficiencyTable <- tibble(
+   country = as.character(dimnames(ressingle$Efficiency)[[1]]),
+   efficiency = as.numeric(ressingle$Efficiency)) %>%
+   arrange(desc(efficiency))
+
+pander(head(efficiencyTable), caption = "DEA Output Efficiency for Aggregate Scores")
+```
+
+Looks like Switzerland is setting the benchmark for total spending efficiency as reflected by the Average test scores. Denmark is a very close runner up, but then the rest of the list is a bit surprising. Lets look at the graph.
+
+```{r single output plot}
+dea.plot(x = x1, y = y, txt = dimnames(x1)[[1]], GRID = T,
+         xlab = "Total Spending", ylab = "Average PISA",
+         ylim = c(400,550), main = "2015 OECD data DEA plot")
+```
+
+The overall shape of the graph is somewhat like an anvil cloud, where there are several points that indicate the lower test scores and lower spending values, but quickly the points form a flatter layer what almost looks like a band stretching along the length of the spending axis where test values range from 450 up to the maximum indicated by the frontier boundary. This graph makes it a little harder to see some of the points, so we'll translate the information to a ggplot graph. 
+
+```{r hand drawn frontier}
+# warning, the geom_segment calls are not reproducible and must be hand specified
+ggplot(data, aes(x = Total.Spending, y  = AveragePISA)) +
+   geom_point() +
+   geom_text(aes(label = Countries), size = 3,
+             nudge_x = 2, nudge_y = -1.5, color = "gray40") +
+   geom_segment(aes(x = 40, y = 529, xend = 25, yend = 528.67), color = "dodgerblue") +
+   geom_segment(aes(x = 25, y = 528.67, xend = 7, yend = 523.67), color = "dodgerblue") +
+   geom_segment(aes(x = 7, y = 523.67, xend = 1, yend = 506.33), color = "dodgerblue") +
+   geom_segment(aes(x = 1, y = 506.33, xend = 1, yend = 504.33), color = "dodgerblue") +
+   geom_segment(aes(x = 1, y = 504.33, xend = 1, yend = 400), color = "dodgerblue") +
+   #geom_segment(aes(x = 11, y = 524.33, xend = 1, yend = 506.33), color = "lightblue") +
+   theme_minimal() +
+   ggtitle("DEA plot of 2015 OECD Countries",
+           subtitle = "Average Education Scores by Total Spending")
+```
+
+Now its clearer to see that Switzerland and Denmark are on the edge of the efficiency frontier at the lower range of total spending. The curve indicates that there is an increase in test scores with an increase in total spending reflected by the positive slope of the curve between Switzerland and Canada and that this nearly flattens from there over Japan's maximum score. The ggplot graph also makes it a little easier to see how far the United States and Luxembourg are from their real world geographical neighbors.
+
+### Efficiency of Total Spending as a Percentage of GDP
+
+```{r pctGDP single output dea}
+#this is single input and single output
+# uses x2 as x and the same y from the previous section
+row.names(x2) <- data[,1]
+
+pctGDPressingle <- DeaMultiplierModel(x2, y, rts = "crs", orientation = "output")
+
+pctGDPefficiencyTable <- tibble(
+   country = as.character(dimnames(pctGDPressingle$Efficiency)[[1]]),
+   efficiency = as.numeric(pctGDPressingle$Efficiency)) %>%
+   arrange(desc(efficiency))
+
+pander(head(pctGDPefficiencyTable), caption = "DEA Output Efficiency 
+       for Total Spending as a percentage of GDP on Aggregate Scores")
+```
+
+```{r pctGDP single output plot}
+dea.plot(x = x2, y = y, txt = dimnames(x2)[[1]], GRID = T,
+         xlab = "Spending as Percent of GDP", ylab = "Average PISA",
+         ylim = c(400,550), main = "2015 OECD data DEA plot percentage GDP spendin")
+```
+
+> Something isn't right about this, why is Iceland spending 125% of their GDP on education? Can someone check those data values, is the currency the same?
+
+
+## Part B: Single input, multiple output
+
+For this first part, we will set up and solve a DEA model using the single GDP data point for the input and multiple test scores for outputs.
+
+Run a DEA with a single input, but multiple outputs:
+```{r runmultipledea}
+#this is single input and multiple output
+y <- data %>% select(SciencePISA, ReadingPISA, MathematicsPISA) ## output
+row.names(y) <- data[,1]
+
+resmult <- DeaMultiplierModel(x1, y, rts = "crs", orientation = "output")
+
+multEfficiencyTable <- tibble(
+   country = as.character(dimnames(resmult$Efficiency)[[1]]),
+   efficiency = as.numeric(resmult$Efficiency)) %>%
+   arrange(desc(efficiency))
+```
+
+
+```{r inspect resmult}
+pander(head(multEfficiencyTable, 10), caption = "DEA Output Efficency for Multiple Scores")
+```
+
+```{r weights for resmult}
+pander(head(resmult$uy), caption = "DEA Output Weights for Multiple Scores")
+```
+
+Here is the DEA plot for that multiple outputs model.
+
+```{r multiple output plot}
+dea.plot(x = x1, y = y, txt = dimnames(x1)[[1]], GRID = T,
+         xlab = "Total Spending", ylab = "Multiple Output PISA",
+         ylim = c(1200,1600),
+         main = "2015 OECD data DEA multiple output plot")
+```
+
+```{r hand drawn multiple output frontier}
+# warning, the geom_segment calls are not reproducible and must be hand specified
+data$multPISA <- data$SciencePISA + data$ReadingPISA + data$MathematicsPISA
+data$country <- data$Countries
+
+ggplot(data, aes(x = Total.Spending, y  = multPISA)) +
+   geom_point() +
+   geom_text(aes(label = Countries), size = 3,
+             nudge_x = 2, nudge_y = -1.5, color = "gray40") +
+   geom_segment(aes(x = 40, y = 1586, xend = 25, yend = 1586), color = "dodgerblue") +
+   geom_segment(aes(x = 25, y = 1586, xend = 7, yend = 1571), color = "dodgerblue") +
+   geom_segment(aes(x = 7, y = 1571, xend = 1, yend = 1519), color = "dodgerblue") +
+   geom_segment(aes(x = 1, y = 1519, xend = 1, yend = 1200), color = "dodgerblue") +
+   theme_minimal() +
+   ggtitle("DEA plot of 2015 OECD Countries",
+           subtitle = "Multiple Education Scores by Total Spending")
+```
+
+
+
+## Part C: Results and discussion
+
+Some quick analysis of the results:
+
+```{r quickanalysis}
+max(ressingle$Efficiency) ## the maximum efficiency for one output
+which.max(ressingle$Efficiency) ## the row value of the maximum efficiency
+data[33, ] ## the row from the data matching the answers above
+min(ressingle$Efficiency) ##same for mins
+which.min(ressingle$Efficiency)
+data[22,]
+ressingle$Efficiency["United States",] ## US efficiency
+```
+
+
+# References
+
+### Data Sources
+
+> insert links/doi to data sets/info here
+
+Anderson, T. R. (2019) Operations Research in R 
+
+Anderson, T. R. (2019) Data Envelope Analysis in R
+
+Bogetoft, P., Otto, L. (2011) Benchmarking with DEA, SFS, and R. Springer. 
+
+# Appendix
+
+### Numerical variable correlation check
+This serves as a quick guide for inspecting two-way relationships between numerical variables in the data using the Pearson's Correlation Coefficient.
+The following graphic shows negative correlations in shades of red, positive correlations in shades of blue with the color intensity scaled on the strength of the correlation. The correlation coeffcient value is also given as a numeric in the lower matrix, with the upper matrix giving a visual cue in the size and color intensity of the circle. To make the graph easier to read, we'll use a set of shortened names for the variables. 
+
+```{r numerical variable correlations}
+data_mat <- data[,-1]
+names(data_mat) <- c("GDP", "sci", "read", "math", "ave", "HDI", "priEd", "secEd", "terEd", "totSp", "tGr", "bGr", "MS", "PhD")
+
+data_mat <- data.matrix(data_mat, rownames.force = T)
+row.names(data_mat) <- data[,1]
+
+data_corr_mat <- cor(data_mat)
+
+corrplot.mixed(data_corr_mat)
+```
+
+What we can see here is that the test scores are all highly positively correlated with each other, which makes sense. Interestingly, though the next variable that is positively correlated with the test scores is the `Doctorate` variable (as seen in the medium blue values along the last row of the corrplot matrix). Clearly something is up with our HDI variable, I'll have to go back and look at it.
+
+GDP does not appear to correlate with anything other than total spending, which we would expect it to be roughly positively correlated. It appears as though the test scores are only positively correlated to primary education spending and are actually negatively correlated to secondary and teriary education spending. (Please correct this statement if those values mean something other than what I've stated.)
+
