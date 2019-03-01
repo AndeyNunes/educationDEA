@@ -35,7 +35,7 @@ In this section, the paper aims to study the efficiency of the public expenditur
 
 ## Optimization Model Definition
 
-In our paper, we used input oriented model. Here, only one input is considered and defined as $x_{i,j}$ to  be the amount of the _i_'th input used by unit _j_ . Here j is the country we are analysing. Two outputs have been considered and defined as  $y_{r,j}$ to be the amount of the _r_'th output produced by unit _j_. n is the number of countries we analysed.  
+In our paper, we used output oriented model. Here, only one input is considered and defined as $x_{i,j}$ to  be the amount of the _i_'th input used by unit _j_ . Here j is the country we are analysing. Two outputs have been considered and defined as  $y_{r,j}$ to be the amount of the _r_'th output produced by unit _j_. n is the number of countries we analysed.  
 
 The following optimization model has been solved to obtain the efficiency score while minimizing the value of 
 
