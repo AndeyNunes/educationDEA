@@ -80,8 +80,6 @@ data$Tertiary.Graduation.Rate <- as.numeric(data$Tertiary.Graduation.Rate)
 data$Bachelors.Graduation.rates <- as.numeric(data$Bachelors.Graduation.rates)
 data$Doctorates <- as.numeric(data$Doctorates)
 
-# create a spending as a percentage of GDP value
-data$spendingPctGDP <- data$Total.Spending/data$GDP*100
 ```
 
 Other exploratory data information (such as correlations between numerical variables?) is included in the appendix.
@@ -95,7 +93,7 @@ Run a DEA with a single input (total education spending) and a single output (Av
 ```{r run single dea}
 #this is single input and single output
 x1 <- data %>% select(Total.Spending) ## input
-x2 <- data %>% select(spendingPctGDP) ## ratio input used in next section
+x2 <- data %>% select(Spending.as.percentage.of.GDP) ## ratio input used in next section
 y <- data %>% select(AveragePISA) ## output
 row.names(x1) <- data[,1]
 row.names(y) <- data[,1]
