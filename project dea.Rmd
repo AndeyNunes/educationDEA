@@ -161,7 +161,7 @@ pander(head(pctGDPefficiencyTable), caption = "DEA Output Efficiency
 ```{r pctGDP single output plot}
 dea.plot(x = x2, y = y, txt = dimnames(x2)[[1]], GRID = T,
          xlab = "Spending as Percent of GDP", ylab = "Average PISA",
-         ylim = c(400,550), main = "2015 OECD data DEA plot percentage GDP spendin")
+         ylim = c(400,550), main = "2015 OECD data DEA plot percentage GDP spending")
 ```
 
 > Something isn't right about this, why is Iceland spending 125% of their GDP on education? Can someone check those data values, is the currency the same?
