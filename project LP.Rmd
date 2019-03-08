@@ -1,0 +1,22 @@
+---
+title: "Project Linear Program"
+author:
+- Samira Akther  
+- Jordan Hilton
+- Andey Nunes
+- Aparna Raghuram
+- Mohammed Sheikh
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+output: pdf_document
+---
+
+```{r impliciteducationLP}
+educationLP <- MIPModel() %>%
+  add_variable (x[i], i=1:NW,j=1:ND, type="continuous", lb=0) %>%
+  set_objective (sum_expr(sum_expr(PathCosts[i, j] * x[i, j] , i=1:NW), j=1:ND ), "min") %>% #minimize costs, * here is scalar mult.
+  add_constraint (sum_expr(x[i, j], j=1:ND) == Supply[i],  i=1:NW) %>%  # NW constraints on supply
+  add_constraint (sum_expr(x[i, j], i=1:NW) <= Demand[j],  j=1:ND) %>%  # ND constraints on demand
+  solve_model(with_ROI(solver = "glpk"))
+  
+educationLP
+```
