@@ -10,13 +10,55 @@ date: "`r format(Sys.time(), '%B %d, %Y')`"
 output: pdf_document
 ---
 
+```{r setup, warning=FALSE, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+#library(magrittr, quietly = TRUE) #Used for pipes/dplyr
+#library(dplyr, quietly = TRUE)
+library(tidyverse, quietly = TRUE)
+library(ROI, quietly = TRUE)
+library(ROI.plugin.glpk, quietly = TRUE)
+library(ompr, quietly = TRUE)
+library(ompr.roi, quietly = TRUE)
+library(pander, quietly = TRUE)
+```
+Let's load our data and apply some variable names. We're going to use Average PISA score as our desired output and total spending per student as the input. We also need to drop some rows for this since they are missing the "total education spending" variable we want to use:
+
+
+```{r load}
+## load our data, downloaded from the google sheet
+eddata <- read.csv("OECDdata.csv")
+eddata<-eddata[-c(7,21,33),] ##drop rows missing data
+countrynames<-eddata[,1]
+AvPisa<-as.numeric(eddata[,6]) ## average PISA score
+TotSpending<-as.numeric(gsub(",", "", eddata[,11])) ## total spending per student in each country
+SpendEff<-AvPisa/TotSpending #the spending efficience per test score in each country
+countrycount<-length(countrynames) #the total number of countries
+```
+
+For our linear program, we're going to pretend for a moment that all these countries have equal student populations,  and that if we look at the current ratio of spending per student and test score achievement, that will tell us how efficient it is to spend additional money in each country.
+
+Here's our question for analysis: let's say we have a grant of size \$5,000/student, and that we can't spend more than  \$1,000/student in any single country. How should we spend our grant to most efficiently improve test scores?
+
+We have 36 countries in the sample, so we have 36 decision variables $x_i$; how much money to spend in each country. We should not spend less than \$0 in any country.
+
 ```{r impliciteducationLP}
 educationLP <- MIPModel() %>%
-  add_variable (x[i], i=1:NW,j=1:ND, type="continuous", lb=0) %>%
-  set_objective (sum_expr(sum_expr(PathCosts[i, j] * x[i, j] , i=1:NW), j=1:ND ), "min") %>% #minimize costs, * here is scalar mult.
-  add_constraint (sum_expr(x[i, j], j=1:ND) == Supply[i],  i=1:NW) %>%  # NW constraints on supply
-  add_constraint (sum_expr(x[i, j], i=1:NW) <= Demand[j],  j=1:ND) %>%  # ND constraints on demand
+  add_variable (x[i], i=1:countrycount, type="continuous", lb=0) %>%
+  set_objective (sum_expr(SpendEff[i] * x[i] , i=1:countrycount), "max") %>% #maximize test scores
+  add_constraint (sum_expr(x[i], i=1:countrycount) <= 5000) %>%  # total spending constraint
+  add_constraint (x[i]<=1000,  i=1:countrycount) %>%  # per country spending restraint
   solve_model(with_ROI(solver = "glpk"))
   
 educationLP
 ```
+
+Let's take a look at our solution:
+
+```{r inspect}
+educationLP$solution
+solutioncountries<-as.character(countrynames[c(5,11,12,21,31)])
+solutionscores<-AvPisa[c(5,11,12,21,31)]
+solutionspending<-as.numeric(TotSpending[c(5,11,12,21,31)])
+pander(cbind(solutioncountries, solutionscores,solutionspending))
+```
+
