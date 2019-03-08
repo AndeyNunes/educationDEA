@@ -169,13 +169,15 @@ dea.plot(x = x2, y = y, txt = dimnames(x2)[[1]], GRID = T,
 
 For this first part, we will set up and solve a DEA model using the single GDP data point for the input and multiple test scores for outputs.
 
-Run a DEA with a single input, but multiple outputs:
+##Run a DEA with a single input, but multiple outputs:
 ```{r runmultipledea}
 #this is single input and multiple output
-y <- data %>% select(SciencePISA, ReadingPISA, MathematicsPISA) ## output
+x <- data %>% select(Spending.as.percentage.of.GDP)
+y <- data %>% select(AveragePISA,Tertiary.Graduation.Rate) ## output
+row.names(x) <- data[,1]
 row.names(y) <- data[,1]
 
-resmult <- DeaMultiplierModel(x1, y, rts = "crs", orientation = "output")
+resmult <- DeaMultiplierModel(x, y, rts = "crs", orientation = "output")
 
 multEfficiencyTable <- tibble(
    country = as.character(dimnames(resmult$Efficiency)[[1]]),
@@ -195,8 +197,8 @@ pander(head(resmult$uy), caption = "DEA Output Weights for Multiple Scores")
 Here is the DEA plot for that multiple outputs model.
 
 ```{r multiple output plot}
-dea.plot(x = x1, y = y, txt = dimnames(x1)[[1]], GRID = T,
-         xlab = "Total Spending", ylab = "Multiple Output PISA",
+dea.plot(x = x, y = y, txt = dimnames(x)[[1]], GRID = T,
+         xlab ="Spending as percentage of GDP", ylab = "M",
          ylim = c(1200,1600),
          main = "2015 OECD data DEA multiple output plot")
 ```
