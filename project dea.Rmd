@@ -29,7 +29,7 @@ library(corrplot)
 #library(plotly)
 ```
 
-# Efficiency of Public Expenditure on Education
+# Efficiency of Public Expenditure on Education...
 
 In this section, the paper aims to study the efficiency of the public expenditures on education of OECD (Organization for Economic Development) countries. DEA (Data Envelopement Analysis), which is a vastly used tool for measuring efficiency, has been used to measure the efficiency of the public expenditures on education by the countries.The analysis provides an efficient frontier which is a linear combination of the data point with efficiency scores of 1. The analysis also allows us to know possible reduction in the inputs to generate the output of the countries with scores less than 1. 
 
