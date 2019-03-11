@@ -37,9 +37,9 @@ countrycount<-length(countrynames) #the total number of countries
 
 For our linear program, we're going to pretend for a moment that all these countries have equal student populations,  and that if we look at the current ratio of spending per student and test score achievement, that will tell us how efficient it is to spend additional money in each country.
 
-Here's our question for analysis: let's say we have a grant of size \$5,000/student, and that we can't spend more than  \$1,000/student in any single country. How should we spend our grant to most efficiently improve test scores?
+Here's our question for analysis: let's say we have a grant of size $\$5,000$ student, and that we can't spend more than  $\$1,000$ student in any single country. How should we spend our grant to most efficiently improve test scores?
 
-We have 36 countries in the sample, so we have 36 decision variables $x_i$; how much money to spend in each country. We should not spend less than \$0 in any country.
+We have 36 countries in the sample, so we have 36 decision variables $x_i$; how much money to spend in each country. We should not spend less than $\$0$ in any country.
 
 ```{r impliciteducationLP}
 educationLP <- MIPModel() %>%

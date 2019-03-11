@@ -183,15 +183,43 @@ multEfficiencyTable <- tibble(
    country = as.character(dimnames(resmult$Efficiency)[[1]]),
    efficiency = as.numeric(resmult$Efficiency)) %>%
    arrange(desc(efficiency))
+
+```
+
+##DEA with single output, multiple output, dropping rows with no input values
+```{r runmultipledea, dropping rows with no input values}
+
+new_data <- data[-c(4,7,12,19),] #rows with no input values dropped
+nx <- new_data %>% select(Spending.as.percentage.of.GDP)
+ny <- new_data %>% select(AveragePISA,Tertiary.Graduation.Rate) ## output
+row.names(nx) <- new_data[,1]
+row.names(ny) <- new_data[,1]
+
+new_resmult <- DeaMultiplierModel(nx, ny, rts = "crs", orientation = "output")
+
+new_multEfficiencyTable <- tibble(
+   country = as.character(dimnames(new_resmult$Efficiency)[[1]]),
+   efficiency = as.numeric(new_resmult$Efficiency)) %>%
+   arrange(desc(efficiency))
 ```
 
 
-```{r inspect resmult}
+```{r inspect resmult, new_resmult}
 pander(head(multEfficiencyTable, 10), caption = "DEA Output Efficency for Multiple Scores")
+
+pander(head(new_multEfficiencyTable, 10), caption = "DEA Output Efficency for Multiple Scores, rows with no input values dropped")
 ```
 
 ```{r weights for resmult}
 pander(head(resmult$uy), caption = "DEA Output Weights for Multiple Scores")
+
+pander(head(resmult$Lambda), caption = "DEA Lambda values for Multiple Scores, rows with no input values dropped")
+```
+
+```{r weights for new_resmult}
+pander(head(new_resmult$uy), caption = "DEA Output Weights for Multiple Scores")
+
+pander(head(new_resmult$Lambda), caption = "DEA Lambda values for Multiple Scores, rows with no input values dropped")
 ```
 
 Here is the DEA plot for that multiple outputs model.
@@ -235,6 +263,13 @@ min(ressingle$Efficiency) ##same for mins
 which.min(ressingle$Efficiency)
 data[22,]
 ressingle$Efficiency["United States",] ## US efficiency
+
+max(resmult$Efficiency) ## the maximum efficiency for one output
+which.max(resmult$Efficiency) ## the row value of the maximum efficiency
+data[4, ]
+min(resmult$Efficiency) ##same for mins
+which.min(resmult$Efficiency)
+data[14,]
 ```
 
 example change
