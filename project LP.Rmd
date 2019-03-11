@@ -15,6 +15,7 @@ knitr::opts_chunk$set(echo = TRUE)
 #library(magrittr, quietly = TRUE) #Used for pipes/dplyr
 #library(dplyr, quietly = TRUE)
 library(tidyverse, quietly = TRUE)
+library(knitr, quietly = TRUE)
 library(ROI, quietly = TRUE)
 library(ROI.plugin.glpk, quietly = TRUE)
 library(ompr, quietly = TRUE)
@@ -27,12 +28,14 @@ Let's load our data and apply some variable names. We're going to use Average PI
 ```{r load}
 ## load our data, downloaded from the google sheet
 eddata <- read.csv("OECDdata.csv")
-eddata<-eddata[-c(7,21,33),] ##drop rows missing data
-countrynames<-eddata[,1]
-AvPisa<-as.numeric(eddata[,6]) ## average PISA score
-TotSpending<-as.numeric(gsub(",", "", eddata[,11])) ## total spending per student in each country
-SpendEff<-AvPisa/TotSpending #the spending efficience per test score in each country
-countrycount<-length(countrynames) #the total number of countries
+
+
+eddata <- eddata[-c(7,21,33),] ##drop rows missing data
+countrynames <- eddata[,1]
+AvPisa <- as.numeric(eddata[,6]) ## average PISA score
+TotSpending <- as.numeric(gsub(",", "", eddata[,11])) ## total spending per student in each country
+SpendEff <- AvPisa/TotSpending #the spending efficience per test score in each country
+countrycount <- length(countrynames) #the total number of countries
 ```
 
 For our linear program, we're going to pretend for a moment that all these countries have equal student populations,  and that if we look at the current ratio of spending per student and test score achievement, that will tell us how efficient it is to spend additional money in each country.
@@ -41,12 +44,24 @@ Here's our question for analysis: let's say we have a grant of size $\$5,000$ st
 
 We have 36 countries in the sample, so we have 36 decision variables $x_i$; how much money to spend in each country. We should not spend less than $\$0$ in any country.
 
+$$
+ \begin{split}
+ \begin{aligned}
+    \text{Maximize  }   &  \sum_{i=1}^{\#countries} SpendEff_i x_i \\
+    \text{subject to }  & \sum_{i=1}^{\#countries} x_i \leq 5000\\
+                        & x_i \leq 1000\\
+                        & x_i \geq 0  \;  \forall \; i
+  \end{aligned}
+  \end{split}
+$$
+
+
 ```{r impliciteducationLP}
 educationLP <- MIPModel() %>%
-  add_variable (x[i], i=1:countrycount, type="continuous", lb=0) %>%
-  set_objective (sum_expr(SpendEff[i] * x[i] , i=1:countrycount), "max") %>% #maximize test scores
-  add_constraint (sum_expr(x[i], i=1:countrycount) <= 5000) %>%  # total spending constraint
-  add_constraint (x[i]<=1000,  i=1:countrycount) %>%  # per country spending restraint
+  add_variable(x[i], i = 1:countrycount, type = "continuous", lb = 0) %>%
+  set_objective(sum_expr(SpendEff[i] * x[i] , i = 1:countrycount), "max") %>% #maximize test scores
+  add_constraint(sum_expr(x[i], i = 1:countrycount) <= 5000) %>%  # total spending constraint
+  add_constraint(x[i] <= 1000,  i = 1:countrycount) %>%  # per country spending restraint
   solve_model(with_ROI(solver = "glpk"))
   
 educationLP
@@ -55,10 +70,40 @@ educationLP
 Let's take a look at our solution:
 
 ```{r inspect}
-educationLP$solution
-solutioncountries<-as.character(countrynames[c(5,11,12,21,31)])
-solutionscores<-AvPisa[c(5,11,12,21,31)]
-solutionspending<-as.numeric(TotSpending[c(5,11,12,21,31)])
+edLPsolution <- educationLP$solution
+names(edLPsolution) <- countrynames
+kable(edLPsolution)
+```
+
+
+
+```{r solution countries}
+solutioncountries <- as.character(countrynames[c(5,11,12,21,31)])
+solutionscores <- AvPisa[c(5,11,12,21,31)]
+solutionspending <- as.numeric(TotSpending[c(5,11,12,21,31)])
 pander(cbind(solutioncountries, solutionscores,solutionspending))
 ```
+
+
+
+#### Shadow Prices **Row Duals**
+
+```{r shadow prices}
+shadow_prices <- educationLP$solution_row_duals()
+names(shadow_prices) <- countrynames
+shadow_prices
+```
+
+
+#### Reduced Costs **Column Duals**
+
+```{r reduced costs}
+reduced_costs <- educationLP$solution_column_duals()
+names(reduced_costs) <- countrynames
+kable(reduced_costs)
+```
+
+
+
+
 
