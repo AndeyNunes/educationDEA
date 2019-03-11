@@ -62,24 +62,21 @@ Here is a summary of the data.
 
 ```{r load}
 ## load our data, downloaded from the google sheet
-data <- read.csv("OECDdata.csv")
+data <- read_csv("OECDdata.csv")
+# please leave this as "read_csv" because "read.csv" loads most of the data
+# factors instead of numeric values
 
 summary(data)
 ```
 
-It appears that all but the first seven variables were read in as factors and not numeric values. Also, we can see that there are three observations missing from several of the population education level fields and three zero values for `Total.Spending`. These may need to be excluded from the analysis.
+We can see that there are three observations missing from several of the population education level fields and three zero values for `Total.Spending`. These may need to be excluded from the analysis.
 
 
 ```{r data cleaning}
-# convert factors to numeric
-data$Primary.education <- as.numeric(data$Primary.education)
-data$Secondary.education <- as.numeric(data$Secondary.education)
-data$Tertiary.education <- as.numeric(data$Tertiary.education)
-data$Total.Spending <- as.numeric(data$Total.Spending)
-data$Tertiary.Graduation.Rate <- as.numeric(data$Tertiary.Graduation.Rate)
-data$Bachelors.Graduation.rates <- as.numeric(data$Bachelors.Graduation.rates)
-data$Doctorates <- as.numeric(data$Doctorates)
-
+# remove 0 spending countries and fix the spending %GDP column
+data <- data %>%
+   filter(`Total Spending` > 0) %>%
+   mutate(`Spending as percentage of GDP` = `Total Spending`/GDP/100)
 ```
 
 Other exploratory data information (such as correlations between numerical variables?) is included in the appendix.
@@ -92,11 +89,12 @@ For this first part, we will set up and solve a DEA model using the single GDP d
 Run a DEA with a single input (total education spending) and a single output (Average PISA score)
 ```{r run single dea}
 #this is single input and single output
-x1 <- data %>% select(Total.Spending) ## input
-x2 <- data %>% select(Spending.as.percentage.of.GDP) ## ratio input used in next section
+x1 <- data %>% select(`Total Spending`) ## input
+x2 <- data %>% select(`Spending as percentage of GDP`) ## ratio input used in next section
 y <- data %>% select(AveragePISA) ## output
-row.names(x1) <- data[,1]
-row.names(y) <- data[,1]
+row.names(x1) <- data$Countries #%>%
+   
+row.names(y) <- data$Countries
 
 
 ressingle <- DeaMultiplierModel(x1, y, rts = "crs", orientation = "output")
@@ -121,7 +119,7 @@ The overall shape of the graph is somewhat like an anvil cloud, where there are 
 
 ```{r hand drawn frontier}
 # warning, the geom_segment calls are not reproducible and must be hand specified
-ggplot(data, aes(x = Total.Spending, y  = AveragePISA)) +
+ggplot(data, aes(x = `Total Spending`, y  = AveragePISA)) +
    geom_point() +
    geom_text(aes(label = Countries), size = 3,
              nudge_x = 2, nudge_y = -1.5, color = "gray40") +
@@ -142,8 +140,14 @@ Now its clearer to see that Switzerland and Denmark are on the edge of the effic
 
 ```{r pctGDP single output dea}
 #this is single input and single output
+
+x2 <- data %>% select(`Spending as percentage of GDP`) ## ratio input used in next section
+y <- data %>% select(AveragePISA) ## output
+
 # uses x2 as x and the same y from the previous section
-row.names(x2) <- data[,1]
+row.names(x2) <- data$Countries
+row.names(y) <- data$Countries
+
 
 pctGDPressingle <- DeaMultiplierModel(x2, y, rts = "crs", orientation = "output")
 
