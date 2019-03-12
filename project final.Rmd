@@ -4,7 +4,7 @@ author:
 - Samira Akther  
 - Jordan Hilton
 - Andey Nunes
-- Aparna Raghuram
+- Aparna Gandikota
 - Mohammed Sheikh
 date: "`r format(Sys.time(), '%B %d, %Y')`"
 output: pdf_document
