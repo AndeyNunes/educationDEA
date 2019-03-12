@@ -107,6 +107,8 @@ efficiencyTable <- tibble(
    arrange(desc(efficiency))
 
 pander(head(efficiencyTable), caption = "DEA Output Efficiency for Aggregate Scores")
+pander(head(ressingle$Lambda), caption = "DEA lambda values for Aggregate Scores")
+
 ```
 
 
@@ -154,6 +156,7 @@ multEfficiencyTable <- tibble(
 
 ```{r inspect resmult}
 pander(head(multEfficiencyTable, 10), caption = "DEA Output Efficency for Multiple Scores")
+pander(head(resmult$Lambda), caption = "DEA lambda values for Multiple Scores")
 ```
 
 
