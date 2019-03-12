@@ -217,12 +217,13 @@ pander(head(new_multEfficiencyTable, 10), caption = "DEA Output Efficency for Mu
 ```{r weights for resmult}
 pander(head(resmult$uy), caption = "DEA Output Weights for Multiple Scores")
 
-pander(head(resmult$Lambda), caption = "DEA Lambda values for Multiple Scores, rows with no input values dropped")
+pander(head(resmult$Lambda), caption = "DEA Lambda values for Multiple Scores")
 ```
 
 ```{r weights for new_resmult}
-pander(head(new_resmult$uy), caption = "DEA Output Weights for Multiple Scores")
-
+pander(new_resmult$uy, caption = "DEA Output Weights for Multiple Scores")
+new_resmult$InputValues
+new_resmult$OutputValues
 pander(head(new_resmult$Lambda), caption = "DEA Lambda values for Multiple Scores, rows with no input values dropped")
 ```
 
