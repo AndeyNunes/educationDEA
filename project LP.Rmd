@@ -4,7 +4,7 @@ author:
 - Samira Akther  
 - Jordan Hilton
 - Andey Nunes
-- Aparna Raghuram
+- Aparna Gandikota
 - Mohammed Sheikh
 date: "`r format(Sys.time(), '%B %d, %Y')`"
 output: pdf_document
@@ -44,12 +44,14 @@ Here's our question for analysis: let's say we have a grant of size $\$5,000$ st
 
 We have 36 countries in the sample, so we have 36 decision variables $x_i$; how much money to spend in each country. We should not spend less than $\$0$ in any country.
 
+For this formulation let's define the decison variable as $x_i$ and the spending efficiency as $E_i$:
+
 $$
  \begin{split}
  \begin{aligned}
-    \text{Maximize  }   &  \sum_{i=1}^{\#countries} SpendEff_i x_i \\
+    \text{Maximize  }   &  \sum_{i=1}^{\#countries} E_i * x_i \\
     \text{subject to }  & \sum_{i=1}^{\#countries} x_i \leq 5000\\
-                        & x_i \leq 1000\\
+                        & x_i \leq 1000, \\
                         & x_i \geq 0  \;  \forall \; i
   \end{aligned}
   \end{split}
