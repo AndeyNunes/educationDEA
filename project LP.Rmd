@@ -30,7 +30,7 @@ Let's load our data and apply some variable names. We're going to use Average PI
 eddata <- read.csv("OECDdata.csv")
 
 
-eddata <- eddata[-c(7,21,33),] ##drop rows missing data
+# eddata <- eddata[-c(7,21,33),] ##drop rows missing data
 countrynames <- eddata[,1]
 AvPisa <- as.numeric(eddata[,6]) ## average PISA score
 TotSpending <- as.numeric(gsub(",", "", eddata[,11])) ## total spending per student in each country
