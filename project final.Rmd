@@ -11,8 +11,6 @@ output: pdf_document
 ---
 ```{r setup, warning=FALSE, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-#library(magrittr, quietly = TRUE) #Used for pipes/dplyr
-#library(dplyr, quietly = TRUE)
 library(tidyverse, quietly = TRUE)
 library(ROI, quietly = TRUE)
 library(ROI.plugin.glpk, quietly = TRUE)
@@ -21,7 +19,7 @@ library(ompr.roi, quietly = TRUE)
 library(pander, quietly = TRUE)
 library(Benchmarking, quietly = TRUE)
 library(rDEA, quietly = TRUE)
-#library(reshape2, quietly = TRUE)
+library(knitr)
 library(MultiplierDEA)
 library(ggthemes)
 library(corrplot)
@@ -254,11 +252,15 @@ Let's take a look at our solution:
 ```{r inspect}
 edLPsolution <- educationLP$solution
 names(edLPsolution) <- countrynames
-kable(edLPsolution)
+table<-cbind(edLPsolution, DEAdata$AveragePISA, DEAdata$Total.Spending)
+colnames(table)<-c("Grant", "AveragePISA", "Current Spending")
+kable(table)
 ```
 
 
 #### Shadow Prices **Row Duals**
+
+In this study the row duals indicate how much benefit we could obtain from additional grant money given our current constraints, which could be used in a request for further grant money.
 
 ```{r shadow prices}
 shadow_prices <- educationLP$solution_row_duals()
@@ -267,13 +269,6 @@ shadow_prices
 ```
 
 
-#### Reduced Costs **Column Duals**
-
-```{r reduced costs}
-reduced_costs <- educationLP$solution_column_duals()
-names(reduced_costs) <- countrynames
-kable(reduced_costs)
-```
 
 
 # References
