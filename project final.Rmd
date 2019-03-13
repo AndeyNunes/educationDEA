@@ -53,7 +53,7 @@ Here, Theta provides the efficiency scores of the countries we analyzed. The cou
 
 ## Data Description
 
-Data has been obtained from secondary sources. Data on PISA scores were obtained from OECD website. Data on public education expenditures as percentage of GDP were obtained from UNESCO website. We considered 36 countries of OECD. The input variable is the public education spending as percentage of GDP of all 36 countries for the year of 2015. The output variables are the average PISA score of all 36 countries and the graduation rates for the year of 2015. 
+Data has been obtained from secondary sources. Data on PISA scores were obtained from OECD website. Data on public education expenditures as percentage of GDP were obtained from UNESCO website. We considered 36 countries of OECD. The input variable is the public education spending as percentage of GDP of all 36 countries for the year of 2015. The output variables are the average PISA score of all 36 countries for the year of 2015. 
 
 Here is a summary of the data.
 
