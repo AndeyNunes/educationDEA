@@ -264,7 +264,7 @@ kable(table)
 solutioncountries<-c(4,8,11,17,21)
 solutioncountrynames <- DEAdata$Countries[solutioncountries]
 solutionscores <- DEAdata$AveragePISA[solutioncountries]
-solutionspending <- DEAdata$`Total Spending`[solutioncountries]
+solutionspending <- DEAdata$Total.Spending[solutioncountries]
 pander(cbind(solutioncountrynames, solutionscores,solutionspending))
 ```
 
