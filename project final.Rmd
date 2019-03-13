@@ -4,15 +4,13 @@ author:
 - Samira Akther  
 - Jordan Hilton
 - Andey Nunes
-- Aparna Raghuram
+- Aparna Gandikota
 - Mohammed Sheikh
 date: "`r format(Sys.time(), '%B %d, %Y')`"
 output: pdf_document
 ---
 ```{r setup, warning=FALSE, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-#library(magrittr, quietly = TRUE) #Used for pipes/dplyr
-#library(dplyr, quietly = TRUE)
 library(tidyverse, quietly = TRUE)
 library(ROI, quietly = TRUE)
 library(ROI.plugin.glpk, quietly = TRUE)
@@ -21,7 +19,7 @@ library(ompr.roi, quietly = TRUE)
 library(pander, quietly = TRUE)
 library(Benchmarking, quietly = TRUE)
 library(rDEA, quietly = TRUE)
-#library(reshape2, quietly = TRUE)
+library(knitr)
 library(MultiplierDEA)
 library(ggthemes)
 library(corrplot)
@@ -55,7 +53,7 @@ Here, Theta provides the efficiency scores of the countries we analyzed. The cou
 
 ## Data Description
 
-Data has been obtained from secondary sources. Data on PISA scores were obtained from OECD website. Data on public education expenditures as percentage of GDP were obtained from UNESCO website. We considered 36 countries of OECD. The input variable is the public education spending as percentage of GDP of all 36 countries for the year of 2015. The output variables are the average PISA score of all 36 countries and the graduation rates for the year of 2015. 
+Data has been obtained from secondary sources. Data on PISA scores were obtained from OECD website. Data on public education expenditures as percentage of GDP were obtained from UNESCO website. We considered 36 countries of OECD. The input variable is the public education spending as percentage of GDP of all 36 countries for the year of 2015. The output variables are the average PISA score of all 36 countries for the year of 2015. 
 
 Here is a summary of the data.
 
@@ -109,6 +107,8 @@ efficiencyTable <- tibble(
    arrange(desc(efficiency))
 
 pander(head(efficiencyTable), caption = "DEA Output Efficiency for Aggregate Scores")
+pander(head(ressingle$Lambda), caption = "DEA lambda values for Aggregate Scores")
+
 ```
 
 
@@ -156,6 +156,7 @@ multEfficiencyTable <- tibble(
 
 ```{r inspect resmult}
 pander(head(multEfficiencyTable, 10), caption = "DEA Output Efficency for Multiple Scores")
+pander(head(resmult$Lambda), caption = "DEA lambda values for Multiple Scores")
 ```
 
 
@@ -208,9 +209,10 @@ data[14,]
 ```
 
 #Linear Program
+
 For our linear program, we're going to pretend for a moment that all these countries have equal student populations,  and that if we look at the current ratio of spending per student and test score achievement, that will tell us how efficient it is to spend additional money in each country.
 
-Here's our question for analysis: let's say we have a grant of size $\$5,000$ student, and that we can't spend more than  $\$1,000$ student in any single country. How should we spend our grant to most efficiently improve test scores?
+Here's our question for analysis: let's say we have a grant of size $\$5,000$ student, and that we can't spend more than  $\$1,000$ per student in any single country. How should we spend our grant to most efficiently improve test scores?
 
 We have 36 countries in the sample, so we have 36 decision variables $x_i$; how much money to spend in each country. We should not spend less than $\$0$ in any country.
 
@@ -226,12 +228,65 @@ $$
   \end{aligned}
   \end{split}
 $$
+Here's some code to adapt the data values from our multiple-output DEA for use in our linear program:
+
+```{r lpdata}
+# eddata <- eddata[-c(7,21,33),] ##drop rows missing data
+countrynames <- DEAdata[,1]
+countrycount <- length(countrynames) #the total number of countries
+spendingefficiency <- resmult$Efficiency
+```
+
+Now let's implement our program in OMPR, implicitly since we don't want to write out more than 60 constraints::
+
+```{r impliciteducationLP}
+educationLP <- MIPModel() %>%
+  add_variable(country[i], i = 1:countrycount, type = "continuous", lb = 0) %>%
+  set_objective(sum_expr(spendingefficiency[i] * country[i] , i = 1:countrycount), "max") %>% #maximize test scores
+  add_constraint(sum_expr(country[i], i = 1:countrycount) <= 5000) %>%  # total spending constraint
+  add_constraint(country[i] <= 1000,  i = 1:countrycount) %>%  # per country spending restraint
+  solve_model(with_ROI(solver = "glpk"))
+  
+educationLP
+```
+
+Let's take a look at our solution:
+
+```{r inspect}
+edLPsolution <- educationLP$solution
+names(edLPsolution) <- countrynames
+table<-cbind(edLPsolution, DEAdata$AveragePISA, DEAdata$Total.Spending)
+colnames(table)<-c("Grant", "AveragePISA", "Current Spending")
+kable(table)
+```
+
+```{r solutioncountries}
+solutioncountries<-c(4,8,11,17,21)
+solutioncountrynames <- DEAdata$Countries[solutioncountries]
+solutionscores <- DEAdata$AveragePISA[solutioncountries]
+solutionspending <- DEAdata$Total.Spending[solutioncountries]
+pander(cbind(solutioncountrynames, solutionscores,solutionspending))
+```
+
+
+#### Shadow Prices **Row Duals**
+
+In this study the row duals indicate how much benefit we could obtain from additional grant money given our current constraints, which could be used in a request for further grant money.
+
+```{r shadow prices}
+shadow_prices <- educationLP$solution_row_duals()
+names(shadow_prices) <- countrynames
+shadow_prices
+```
+
+
+
 
 # References
 
 ### Data Sources
 
-> insert links/doi to data sets/info here
+All data sourced from https://data.oecd.org/
 
 Anderson, T. R. (2019) Operations Research in R 
 
