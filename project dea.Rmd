@@ -73,7 +73,7 @@ We can see that there are three observations missing from several of the populat
 ```{r data cleaning}
 
 data$Total.Spending <- as.numeric(gsub(",", "", data$Total.Spending))
-data$Spending.as.percentage.of.GDP <- as.numeric(gsub("%", "", data$Spending.as.percentage.of.GDP))
+
 
 # remove 0 spending countries
 DEAdata <- data %>%
@@ -121,21 +121,21 @@ dea.plot(x = x, y = y, txt = dimnames(x)[[1]], GRID = T,
 
 
 
-```{r hand drawn frontier, include=F, eval=F}
+```{r hand drawn frontier single input}
 # warning, the geom_segment calls are not reproducible and must be hand specified
-ggplot(data, aes(x = Total.Spending, y  = AveragePISA)) +
+ggplot(DEAdata, aes(x = Total.Spending, y  = AveragePISA)) +
    geom_point() +
    geom_text(aes(label = Countries), size = 3,
              nudge_x = 2, nudge_y = -1.5, color = "gray40") +
-   geom_segment(aes(x = 40, y = 529, xend = 25, yend = 528.67), color = "dodgerblue") +
-   geom_segment(aes(x = 25, y = 528.67, xend = 7, yend = 523.67), color = "dodgerblue") +
-   geom_segment(aes(x = 7, y = 523.67, xend = 1, yend = 506.33), color = "dodgerblue") +
-   geom_segment(aes(x = 1, y = 506.33, xend = 1, yend = 504.33), color = "dodgerblue") +
-   geom_segment(aes(x = 1, y = 504.33, xend = 1, yend = 400), color = "dodgerblue") +
-   #geom_segment(aes(x = 11, y = 524.33, xend = 1, yend = 506.33), color = "lightblue") +
+   geom_segment(aes(x = 93000, y = 529, xend = 39541, yend = 528.67), color = "dodgerblue") + # end of graph to Japan
+   geom_segment(aes(x = 39541, y = 528.67, xend = 22149, yend = 523.67), color = "dodgerblue") + # from Japan to Canada
+   geom_segment(aes(x = 22149, y = 523.67, xend = 16691, yend = 458.67), color = "dodgerblue") + # from Canada to Greece
+   geom_segment(aes(x = 16691, y = 458.67, xend = 14173, yend = 415.67), color = "dodgerblue") + # from Greece to Mexico
+   geom_segment(aes(x = 14173, y = 415.67, xend = 14173, yend = 400), color = "dodgerblue") + # Mexico to floor
    theme_minimal() +
    ggtitle("DEA plot of 2015 OECD Countries",
            subtitle = "Average Education Scores by Total Spending")
+ggsave("single output DEA.png")
 ```
 
 ## Part B: 
@@ -166,22 +166,24 @@ dea.plot(x = x, y = y, txt = dimnames(x)[[1]], GRID = T,
 ```
 
 
-```{r hand drawn multiple output frontier, include=F, eval=F}
+```{r hand drawn multiple output frontier}
 # warning, the geom_segment calls are not reproducible and must be hand specified
-data$multPISA <- data$SciencePISA + data$ReadingPISA + data$MathematicsPISA
-data$country <- data$Countries
+DEAdata$multPISA <- DEAdata$SciencePISA + DEAdata$ReadingPISA + DEAdata$MathematicsPISA
+DEAdata$country <- DEAdata$Countries
 
-ggplot(data, aes(x = Total.Spending, y  = multPISA)) +
+ggplot(DEAdata, aes(x = Total.Spending, y  = multPISA)) +
    geom_point() +
    geom_text(aes(label = Countries), size = 3,
              nudge_x = 2, nudge_y = -1.5, color = "gray40") +
-   geom_segment(aes(x = 40, y = 1586, xend = 25, yend = 1586), color = "dodgerblue") +
-   geom_segment(aes(x = 25, y = 1586, xend = 7, yend = 1571), color = "dodgerblue") +
-   geom_segment(aes(x = 7, y = 1571, xend = 1, yend = 1519), color = "dodgerblue") +
-   geom_segment(aes(x = 1, y = 1519, xend = 1, yend = 1200), color = "dodgerblue") +
+   geom_segment(aes(x = 93000, y = 1590, xend = 39541, yend = 1586), color = "dodgerblue") + # end of graph to Japan
+   geom_segment(aes(x = 39541, y = 1586, xend = 22149, yend = 1571), color = "dodgerblue") + # from Japan to Canada
+   geom_segment(aes(x = 22149, y = 1571, xend = 16691, yend = 1376), color = "dodgerblue") + # from Canada to Greece
+   geom_segment(aes(x = 16691, y = 1376, xend = 14173, yend = 1247), color = "dodgerblue") + # from Greece to Mexico
+   geom_segment(aes(x = 14173, y = 1247, xend = 14173, yend = 1200), color = "dodgerblue") + # 
    theme_minimal() +
    ggtitle("DEA plot of 2015 OECD Countries",
            subtitle = "Multiple Education Scores by Total Spending")
+ggsave("multiple output DEA.png")
 ```
 
 
