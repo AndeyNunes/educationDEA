@@ -35,21 +35,21 @@ In this section, the paper aims to study the efficiency of the public expenditur
 
 In our paper, we used output oriented model. Here, only one input is considered and defined as $x_{i,j}$ to  be the amount of the _i_'th input used by unit _j_ . Here j is the country we are analysing. Two outputs have been considered and defined as  $y_{r,j}$ to be the amount of the _r_'th output produced by unit _j_. n is the number of countries we analysed.  
 
-The following optimization model has been solved to obtain the efficiency score while minimizing the value of $$\theta$$.
+The following optimization model has been solved to obtain the efficiency score while maximizing the value of $$\phi$$.
 
 
 $$
  \begin{split}
  \begin{aligned}
- \text{Min  }   & \theta\\
-  \text{subject to }\ & \sum_{j=1}^{n} x_{i,j}\lambda_j \leq x_{i,k} \forall \; i & i=1 ,\ldots, n\\
-                      & \sum_{j=1}^{N^D} y_{r,j}\lambda_j \geq  y_{r,k} \forall \; r & j=1 ,\ldots, r&\\
+ \text{Max  }   & \phi \\
+  \text{subject to }\ & \sum_{j=1}^{n} x_{i,j}\lambda_j \leq x_{i,k} \; \forall \; i \\
+                      & \sum_{j=1}^{n} y_{r,j}\lambda_j \geq  \phi_{r,k} \; \forall \; r \\
                       & \lambda_j \geq 0  \; \forall \; j
   \end{aligned}
   \end{split}
 $$
 
-Here, Theta provides the efficiency scores of the countries we analyzed. The country with score of 1 lies in the efficient frontier and shows that any input reduction is not possible for generating the output. The countries with scores less than 1 will be considered as inefficient within the efficient frontier. Vector Lambda he specific amount of a unit _j_ used in setting the target for for performance for unit _k_.
+Here, Phi provides the efficiency scores of the countries we analyzed. The country with score of 1 lies in the efficient frontier and shows that any input reduction is not possible for generating the output. The countries with scores less than 1 will be considered as inefficient within the efficient frontier. Vector Lambda he specific amount of a unit _j_ used in setting the target for for performance for unit _k_.
 
 ## Data Description
 
