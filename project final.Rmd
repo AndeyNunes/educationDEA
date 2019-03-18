@@ -288,9 +288,9 @@ shadow_prices
 
 All data sourced from https://data.oecd.org/
 
-Anderson, T. R. (2019) Operations Research in R 
+Anderson, T. R. (2019) Operations Research Using R 
 
-Anderson, T. R. (2019) Data Envelope Analysis in R
+Anderson, T. R. (2019) Data Envelopment Analysis Using R
 
 Bogetoft, P., Otto, L. (2011) Benchmarking with DEA, SFS, and R. Springer. 
 
