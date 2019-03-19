@@ -220,7 +220,7 @@ pander(resdea3$Efficiency)
 pander(resdea3$uy)
 ```
 
-Note that we're missing quite a few elements of data for tertiary graduation rate. We can see that with these changed inputs, Canada, Mexico and Japan remain efficient but several other countries, including Turkey, Slovenia, and Poland have become fully efficient, implying that they do a good job utilizing their teacher's hours efficiently.
+Note that we're missing quite a few elements of data for tertiary graduation rate. We can see that with these changed inputs, Canada, Mexico and Japan remain efficient but several other countries, including Turkey, Slovenia, and Poland have become fully efficient, implying that they do a good job utilizing their teacher's hours efficiently. Greece has the highest weight applied to its graduation rate, implying that they do relatively well on this measure.
 
 ## Part D: Results and discussion
 
