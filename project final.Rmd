@@ -27,6 +27,20 @@ library(corrplot)
 #library(plotly)
 ```
 
+##Abstract
+
+
+##Introduction
+Education has long been identified as a catalyst for human development. The rise of every civilization has coincided with a shift in attitude towards attaining and valuing knowledge, and the peak of each civilization  usually aligns with peaks in their attained knowledge. For this reason, most historical societies tried to place an emphasis in the process of individual citizens attaining the available knowledge to maximize  an individual's contributions to society. This process, however, was informal and was only available to a select few.
+
+After the renaissance period, the approach to education process was far or less standarized. Societies realized the need to produce educated individuals that can tackle new problems faced by society and governments throughout the world, started to shape their educational curriculum's based on the country's need. Today, most countries have curriculum's that are directly based on this but tweaked to fit their national goals and values. The focus and the mission of each country's educational department and directly reflects their future asirations and social, political, and economical goals.
+
+For example, the United States Department of Education's mission statement includes "to promote student achievement and preparation for global competitiveness ". In germany, the Education department is grouped with research and controlled under the department of Education and Research. Their mission includes "promote education and research for they are the foundations on which we will build our future in a changing world". In mexico, the Department's goal is "to create general conditions that permit the assurance of quality education to all Mexicans". These differing mission objectives, though all noble, point out the subtle differences each society attaches to the education process.
+
+ The subtle differences can also translate to funding policies. Currently, budgets for Education Departments around the world constitues a good percentage of each countries overall GDP. For countries within the "Organization for Economic Development" (OECD), current budgets stand between 4-8 percent of their entire GDP.  Globally, the current spending on education alone is estimated at ~5 trillion U.S dollars with this figure estimated to reach ~10 trillion dollars in the year 2030. This is a huge investment without any short term returns. For politicians whose lifespan in the political arena is limited ($Democratic$ $Soceities$), such spending would need justification and buy in.
+
+
+
 ##Methodology
 
 The paper aims to study the efficiency of the education system of OECD (Organization for Economic Development) countries and it examines efficiency by looking at the relationship between certain inputs and outputs. DEA (Data Envelopement Analysis), which is a vastly used tool for measuring efficiency, has been conducted to measure the efficiency of the education system of the countries. 
