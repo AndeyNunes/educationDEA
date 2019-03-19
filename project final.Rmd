@@ -114,12 +114,12 @@ efficiencyTable <- tibble(
    country = as.character(dimnames(ressingle$Efficiency)[[1]]),
    efficiency = as.numeric(ressingle$Efficiency)) %>%
    arrange(desc(efficiency))
-
-pander(head(efficiencyTable), caption = "DEA Output Efficiency for Aggregate Scores")
-pander(head(ressingle$Lambda), caption = "DEA lambda values for Aggregate Scores")
-
 ```
 
+```{r}
+df<-cbind(ressingle$Efficiency, ressingle$Lambda)
+pander(tempdf <-df [, colSums(df) !=0], caption = "Results of Single input-Single output DEA displaying efficiency scores and positive lambda values") 
+```
 
 
 ```{r single output plot}
@@ -164,8 +164,8 @@ multEfficiencyTable <- tibble(
 
 
 ```{r inspect resmult}
-pander(head(multEfficiencyTable, 10), caption = "DEA Output Efficency for Multiple Scores")
-pander(head(resmult$Lambda), caption = "DEA lambda values for Multiple Scores")
+df1<-cbind(resmult$Efficiency, resmult$Lambda)
+pander(tempdf1 <-df1 [, colSums(df1) !=0], caption = "Reesults of Single Input-Multiple Output DEA displaying efficiency scores and positive lambda values") 
 ```
 
 
