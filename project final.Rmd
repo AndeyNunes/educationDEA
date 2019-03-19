@@ -62,7 +62,7 @@ For inputs, we considered each country's education spending per student in US do
 
 As our goal is to find the efficiency of the ecountry's education system, we decided to use PISA score as measumement of success. PISA is widely recognized performance yardstick to assess the competency of a country's school system. PISA focus on three segment: reading, mathematic and science. So there are different scores and each one is considered as an output in our DEA model. Two of our DEA model also considered average of these three scores as an output. In addition to PISA scores, one of our model have been incorporated tertiary graduation rate. 
 
-Data has been obtained from secondary sources. Data on PISA scores were obtained from OECD website. Data on public education expenditures as percentage of GDP were obtained from UNESCO website. We considered 36 countries of OECD. The input variable is the public education spending as percentage of GDP of all 36 countries for the year of 2015. The output variables are the average PISA score of all 36 countries for the year of 2015. 
+Data has been obtained from secondary sources. Data on PISA scores were obtained from OECD website. Data on public education spending per student and tertiary graduation rate were obtained from UNESCO website. Data on teaching hours were collected from ....... 
 
 Here is a summary of the data.
 
