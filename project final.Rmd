@@ -194,9 +194,35 @@ ggplot(data, aes(x = Total.Spending, y  = multPISA)) +
            subtitle = "Multiple Education Scores by Total Spending")
 ```
 
+## Part C: A Model with Multiple Inputs and Outputs
+
+We're also interested in how many hours each country's teachers spend teaching per year as an input, and the tertiary graduation rate as an output. Let's glance at the teaching hours and the graduation rate:
+
+```{r lookatextravariables}
+head(cbind(data$Countries, data$Teaching.Hours, data$Tertiary.Graduation.Rate))
+```
+
+The teachers in Chile sure are hard-working! Here's a model with two inputs, total educational spending per student and average teacher hours per year, and two outputs, Average PISA score and tertiary graduation rate.
+
+```{r run dea 3}
+#this is single input and single output
+x3 <- DEAdata %>% select(Total.Spending, Teaching.Hours) ## input
+
+y3 <- DEAdata %>% select(AveragePISA, Tertiary.Graduation.Rate) ## output
+row.names(x3) <- DEAdata$Countries #%>%
+   
+row.names(y3) <- DEAdata$Countries
 
 
-## Part C: Results and discussion
+resdea3 <- DeaMultiplierModel(x3, y3, rts = "vrs", orientation = "output")
+
+pander(resdea3$Efficiency)
+pander(resdea3$uy)
+```
+
+Note that we're missing quite a few elements of data for tertiary graduation rate. We can see that with these changed inputs, Canada, Mexico and Japan remain efficient but several other countries, including Turkey, Slovenia, and Poland have become fully efficient, implying that they do a good job utilizing their teacher's hours efficiently.
+
+## Part D: Results and discussion
 
 Some quick analysis of the results:
 
