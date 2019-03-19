@@ -29,11 +29,11 @@ library(corrplot)
 
 ##Methodology
 
-The paper aims to study the efficiency of the public expenditures on education of OECD (Organization for Economic Development) countries and it examines efficiency by looking at the relationship between inputs and outputs. DEA (Data Envelopement Analysis), which is a vastly used tool for measuring efficiency, has been conducted to measure the efficiency of the public expenditures on education by the countries. 
+The paper aims to study the efficiency of the education system of OECD (Organization for Economic Development) countries and it examines efficiency by looking at the relationship between certain inputs and outputs. DEA (Data Envelopement Analysis), which is a vastly used tool for measuring efficiency, has been conducted to measure the efficiency of the education system of the countries. 
 
 The basic DEA model is based on constant returns to scale. In our study, we used the model to be based on variable returns to scale on the assumption that every country may not perform in the optimal level. This assumption specifies that as the input is scaled up or down, the output can not be scaled up or down by the same amount.
 
-In our stutdy, our DEA model is based on output-orientation. In the output-oriented model, the first (input) constraint is satisfied while trying to exceed the second constraint (output) by as much possible. The focus of the model is on increasing the output while holding the input as observed in studied units. We assumed that each country has a given fund for spending on education which is influened by various factors including the GDP,budget and political factors.
+In our stutdy, our DEA model is based on output-orientation. In the output-oriented model, the focus of the model is on increasing the output while holding the input as observed in studied units. We assumed that each country has a given fund for spending on education which is influened by various factors including the GDP,budget and political factors.
 
 In a DEA model, the efficiency of a DEcision making unit (DMU) is actually a relative efficiency which is determined by comparing the studied unit's abilty in producing output with a target. In our study, DMU is a country's education system. The objective here is to find the efficiency of this education system in making educational achievements using the resources invested in the system.
 
@@ -53,7 +53,7 @@ $$
   \end{split}
 $$
 
-Here, a country's education system is considered efficient if the efficeincy score  $$\phi$$ is 1. The country with score of 1 lies in the efficient frontier which is a linear combination of all the countries with efficiency scores of 1. The countries with scores less than 1 will be considered as relatively inefficient in comparison to the target specified by $$\lambda$$. The vector $$\lambda$$ is specific amount of a unit _j_ used in setting the target for performance for studied unit _k_. To accomodate the variable returns to scale our studied input and output, a constarint that $$\lambda$$ sums up to 1 is added to the model. 
+Here, a country's education system is considered efficient if the efficeincy score  $$\phi$$ is 1. The country with score of 1 lies in the efficient frontier which is a linear combination of all the countries with efficiency scores of 1. The countries with scores less than 1 will be considered as relatively inefficient in comparison to the target specified by $$\lambda$$. The vector $$\lambda$$ is specific amount of a unit _j_ used in setting the target for performance for studied unit _k_. To accomodate the variable returns to scale of our studied input and output, a constarint that $$\lambda$$ sums up to 1 is added to the model. Also, as it is a output oriented model, the first (input) constraint will be satisfied while trying to exceed the second constraint (output) by as much possible. 
 
 ## Data 
 The discussed methodology has been used to perform three DEA model and analysis and thus have a better understanding of the efficiency of the education system of the countries.We considered 32 OECD countries eliminating those which does not have all the data points. 
