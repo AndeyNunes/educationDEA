@@ -22,6 +22,8 @@ library(pander, quietly = TRUE)
 library(Benchmarking, quietly = TRUE)
 library(rDEA, quietly = TRUE)
 library(knitr)
+library(kableExtra)
+library(DiagrammeR)
 library(MultiplierDEA)
 library(ggthemes)
 library(corrplot)
@@ -34,21 +36,20 @@ set.seed(123)
 
 # Abstract
 
-The paper aims to study the efficiency of the education system of Organization for Economic Development (OECD) countries and it examines efficiency by looking at the relationship between certain inputs and outputs. Data Envelopement Analysis (DEA), which is a vastly used tool for measuring efficiency, has been conducted to measure the efficiency of the education system of the countries. 
-
+The paper aims to study the efficiency of the education system of Organization for Economic Development (OECD) countries and it examines efficiency by looking at the relationship between defined inputs and outputs. Data Envelopment Analysis (DEA), which is a vastly used tool for measuring efficiency, has been conducted to measure the efficiency of the education system of the countries. 
+This project is available on GitHub: https://github.com/AndeyNunes/educationDEA
 
 # Introduction
 
-The paper aims to study the efficiency of the education system of Organization for Economic Development (OECD) countries and it examines efficiency by looking at the relationship between certain inputs and outputs. Data Envelopement Analysis (DEA), which is a vastly used tool for measuring efficiency, has been conducted to measure the efficiency of the education system of the countries.
+The paper aims to study the efficiency of the education system of 25 countries from the Organization for Economic Development (OECD). Using Data Envelopment Analysis (DEA) to examine relative efficiency between defined inputs and outputs. 
 
-** What is DEA? **
+**What is DEA?** 
+cite Dr. Anderson's book [2] and Bogetoft and Otto (2011) [3]
 
-** What is the question we want to answer using DEA? **
+**What is the question we want to answer using DEA?**
 
-** Where does our data come from and how are we planning to use it to answer our question? **
+**Where does our data come from and how are we planning to use it to answer our question?**
 
-
-## Data 
 
 ```{r load and clean data}
 data <- read.csv("OECDdata.csv", stringsAsFactors = F)
@@ -70,11 +71,15 @@ kable(table(setdiff(data[,1], DEAdata[,1])), caption = "Countries not included d
 ```
 
 
-For inputs, we considered each country's education spending per student in US dollars. Per student data will help us to eliminate the size effect of a country with large GDP and thus large budget for education. In the third model, we also incorporate data about teaching hours..........
+For inputs, we considered each country's education spending per student in US dollars and the number of hours teachers spend with students. Per student data will help us to eliminate the size effect of a country with large GDP and thus large budget for education.
 
-As our goal is to evaluate the efficiency of the country's education system, we decided to use PISA score as measumement of success. PISA is widely recognized performance yardstick to assess the competency of a country's school system. PISA focus on three segment: reading, mathematic and science. So there are different scores and each one is considered as an output in our DEA model. Two of our DEA model also considered average of these three scores as an output. In addition to PISA scores, one of our model have been incorporated tertiary graduation rate. 
+As our goal is to evaluate the efficiency of the country's education system, we decided to use PISA score as measumement of success. PISA is widely recognized performance yardstick to assess the competency of a country's school system. PISA focus on three segment: reading, mathematic and science. 
+
+Our project looks first at a single input of Total Spending per student and single output of average PISA score. We then expand on the model by including additional input of Total Hours teachers spend and an additional output, tertiary graduation rate, along with the more granualar PISA scores for a multiple input - multiple output model.
 
 Data was obtained from secondary sources. Data on PISA scores were obtained from OECD website. Data on public education spending per student and tertiary graduation rate were obtained from UNESCO website. Data on teaching hours were collected from ....... 
+
+> SITE ALL DATA SOURCES IN REFERENCES, including links to websites
 
 Summary of the data are included in the Appendix.
 
@@ -84,21 +89,19 @@ Summary of the data are included in the Appendix.
 
 # Literature Review
 
+Data Envelopment Analysis has been used to evaluate educational efficiencies in OECD countries. [5]
+
 
 
 # Methodology
 
-> What are the components of our data that will be used in the model, how do we specify those models based on the questions we are asking.
-
-> Do this for every model!
-
-In a DEA model, the efficiency of a Decision Making Unit (DMU) is actually a relative efficiency which is determined by comparing the studied unit's performance in producing output with a target. In our study, DMUs are the country's education system. The objective here is to find the efficiency of this education system in making educational achievements, measured by the PISA test scores, using the resources invested in the system, measured in time and money.
+In a DEA model, the efficiency of a Decision Making Unit (DMU) is actually a relative efficiency which is determined by comparing the studied unit's performance in producing output with a target. [2] In our study, DMUs are the country's education system. The objective here is to find the efficiency of this education system in making educational achievements, measured by the PISA test scores and college graduation rates, using the resources invested in the system, measured in time and money.
 
 Our DEA model is based on output-orientation because the focus of the model is on improving and optimizing the output based on the input as observed in studied units. We assumed that each country has a given fund for spending on education which is influened by various factors including the GDP, education budgets, and political factors.
 
-The DEA model in our study is based on variable returns to scale (VRS) on the nature of the inputs and outputs. With VRS specified, input can scale up or down, but the output may not scale up or down by the same amount. In fact in the case of test scores, there is an upper limit on the output.
+The basic DEA model is based on an assumption of constant returns to scale. This means that efficient output with a given input can be scaled up or down in a linear or constant rate. Anderson describes this as exhibiting no limit to how big an operation can get with the ratio of input, whereas often in reality, there are structural differnces that inhibit such behavior. [2] The DEA model in our study is based on variable returns to scale (VRS) on the nature of the inputs and outputs. With VRS specified, input can scale up or down, but the output may not scale up or down by the same amount. [3] In fact in the case of test scores, there is an upper limit on the output.
 
-Consider  $n$ number of education system $DMUj$  which consumes $x_{i,j}$ inputs and produce $y_{r,j}$ output. The education system operates in variable returns to scale. So this output oriented model can be expressed by a linear algebric model where the objective will be to maximize the efficiency scores of _j_ education system. The efficiency scores can be defined by $$\phi$$
+Consider  $n$ number of education system $DMUj$  which consumes $x_{i,j}$ inputs and produce $y_{r,j}$ output. The education system operates in variable returns to scale. So this output oriented model can be expressed by a linear algebric model where the objective will be to maximize the efficiency scores of _j_ education system. The efficiency scores can be defined by $\phi$
 
 
 
@@ -125,8 +128,34 @@ The discussed methodology has been used to perform two DEA model and analysis fo
 
 ## Part A: Single input, single output
 
+#### Basic DEA Model: OECD Education Efficiency for Total Spending and Test Score Average
+
+```{r single IO grViz, echo=T}
+grViz("
+digraph nicegraph {
+
+  # a 'graph' statement
+  graph [overlap = true, fontsize = 10]
+
+  # several 'node' statements
+  node [shape = rectangle, fixedsize = true, width = 1,
+        color = darkslategray]
+  Eff
+
+  node [shape = plaintext]
+  TotalSpending; AveragePISA
+
+  # 'edge' statements
+  edge [color = grey]
+  TotalSpending->Eff Eff->AveragePISA 
+}
+")
+```
+
+
 For this first part, we will set up and solve a DEA model using total educational spending per student for the input and the aggregated PISA test score average for the single output.
 
+  
 
 ```{r single output dea, echo = TRUE}
 # Run a DEA with a single input (total spending) and a single output (Average PISA)
@@ -141,32 +170,27 @@ ressingle <- DeaMultiplierModel(x, y, rts = "vrs", orientation = "output")
 ```
 
 
-```{r single output efficiency table, echo = TRUE}
-df <- cbind(ressingle$Efficiency, ressingle$Lambda)
 
-tempdf <- df[, colSums(df) != 0]
 
-pander(tempdf, caption = "Results of Single input-Single output DEA 
-       displaying efficiency scores and positive lambda values") 
-```
-
-> Talk about a few of these efficiencies
 
 ```{r single output plot, echo = TRUE}
 dea.plot(x = x, y = y, txt = dimnames(x)[[1]], GRID = T,
-         xlab = "Total Spending", ylab = "Average PISA",
+         xlab = "Total Spending", ylab = "Average PISA", 
+         xlim = c(10000,120000),
          ylim = c(400,550), main = "2015 OECD data DEA plot")
 ```
-
+  
+  
 This plot is not formated for easy reading. After examining the `dea.plot()` function from Bogetoft & Otto's Benchmarking package, we were able to emulate the graphic in `ggplot`.
-
+  
+  
 ```{r single output dea plot, echo = TRUE}
 # warning, the geom_segment calls are not reproducible and must be hand specified
 ggplot(DEAdata, aes(x = Total.Spending, y  = AveragePISA)) +
    geom_point() +
    geom_text(aes(label = Countries), size = 3,
              nudge_x = 2, nudge_y = -1.5, color = "gray40") +
-   geom_segment(aes(x = 93000, y = 529, xend = 39541, yend = 528.67), color = "dodgerblue") +
+   geom_segment(aes(x = 91000, y = 529, xend = 39541, yend = 528.67), color = "dodgerblue") +
    geom_segment(aes(x = 39541, y = 528.67, xend = 22149, yend = 523.67), color = "dodgerblue") +
    geom_segment(aes(x = 22149, y = 523.67, xend = 16691, yend = 458.67), color = "dodgerblue") + 
    geom_segment(aes(x = 16691, y = 458.67, xend = 14173, yend = 415.67), color = "dodgerblue") + 
@@ -177,15 +201,42 @@ ggplot(DEAdata, aes(x = Total.Spending, y  = AveragePISA)) +
 # ggsave("single output DEA.png") # uncomment this to update the png file for the presentation
 ```
 
-
-
+  
+  
 
 ## Part B: Multiple Inputs and Outputs
 
 We're also interested in how many hours each country's teachers spend teaching per year as another input, and the tertiary graduation rate as another output. Additionally, we are also using the different science, math, and reading PISA scores that made up the `averagePISA` input from the single input single output model. 
 
-Here's a model with two inputs, total educational spending per student and average teacher hours per year, and two outputs, Average PISA score and tertiary graduation rate.
+#### Multiple Input Multiple Output DEA Model of OECD Education Efficiency
+```{r multiple IO grViz, echo=T}
+grViz("
+digraph nicegraph {
 
+  # a 'graph' statement
+  graph [overlap = true, fontsize = 10]
+
+  # several 'node' statements
+  node [shape = rectangle, fixedsize = true, width = 1,
+        color = darkslategray]
+  Eff
+
+  node [shape = plaintext]
+  TotalSpending; TeachingHours; 
+  SciencePISA; ReadingPISA; MathPISA; TertGradRate
+
+  # 'edge' statements
+  edge [color = grey]
+  TotalSpending->Eff TeachingHours->Eff Eff->TertGradRate 
+  Eff->SciencePISA Eff->ReadingPISA Eff->MathPISA 
+}
+")
+```
+
+
+Here is a model with two inputs, total educational spending per student and average teacher hours per year, and four outputs: SciencePISA, ReadingPISA, MathematicsPISA, and tertiary graduation rate.
+
+  
 ```{r multiple DEA, echo = TRUE}
 # multiple input and multiple output
 x <- DEAdata %>% select(Total.Spending, Teaching.Hours) ## input
@@ -201,7 +252,18 @@ resmult <- DeaMultiplierModel(x, y, rts = "vrs", orientation = "output")
 #pander(resmult$Efficiency)
 #pander(resmult$uy)
 ```
-
+ 
+ 
+ 
+```{r multiple output plot, echo = TRUE}
+dea.plot(x = x, y = y, txt = dimnames(x)[[1]], GRID = T,
+         xlab = "Total Spending + Teaching Hours", 
+         ylab = "Multiple Outputs",
+         ylim = c(1250,1750), main = "2015 OECD data DEA plot")
+```
+ 
+ 
+ 
 
 ```{r hand drawn multiple output frontier, echo = TRUE}
 # warning, the geom_segment calls are not reproducible and must be hand specified
@@ -215,7 +277,7 @@ ggplot(DEAdata, aes(x = multIn, y  = multOut)) +
    geom_point() +
    geom_text(aes(label = Countries), size = 3,
              nudge_x = 2, nudge_y = -2, color = "gray40") +
-   geom_segment(aes(x = 93000, y = 1700, xend = 40162, yend = 1681), color = "dodgerblue") +
+   geom_segment(aes(x = 91000, y = 1681, xend = 40162, yend = 1681), color = "dodgerblue") +
    geom_segment(aes(x = 40162, y = 1681, xend = 22910, yend = 1664), color = "dodgerblue") + 
    geom_segment(aes(x = 22910, y = 1664, xend = 17298, yend = 1470), color = "dodgerblue") +
    geom_segment(aes(x = 17298, y = 1470, xend = 15071, yend = 1304), color = "dodgerblue") + 
@@ -228,31 +290,73 @@ ggplot(DEAdata, aes(x = multIn, y  = multOut)) +
 ggsave("multiple output DEA.png") # uncomment this to update the png file for the presentation
 ```
 
+
+
+
+
+# Results and discussion
+
+## Single input - output results
+
+The average efficiency for the Total Spending yielding Average PISA score is `r mean(ressingle$Efficiency)`.
+
+The table of efficiency and lambda scores indicates the following countries are output-oriented efficient units:
+> `r DEAdata$Countries[which(ressingle[[5]]==1)]`
+
+```{r single output efficiency table, echo = TRUE}
+df <- cbind(ressingle$Efficiency, ressingle$Lambda)
+
+tempdf <- df[, colSums(df) != 0]
+
+
+
+kable(tempdf, "latex", caption = "Results of Single input-Single output DEA 
+       displaying efficiency scores and positive lambda values",
+      booktabs = T) %>%
+kable_styling(latex_options = "striped", "repeat_header")
+# code for kableExtra package from Zhu(2019)
+```
+
+
+
+## Multiple input - output results
+
+The average efficiency for the Total Spending yielding Average PISA score is `r mean(resmult$Efficiency)`.
+
+The table of efficiency and lambda scores indicates the following countries are output-oriented efficient units:
+> `r DEAdata$Countries[which(resmult[[5]]==1)]`
+
 ```{r multiple IO efficiency table, echo = TRUE}
 df <- cbind(resmult$Efficiency, resmult$Lambda)
 
 tempdf <- df[, colSums(df) != 0]
 
-pander(tempdf, caption = "Results of Multiple Input Multiple Output DEA displaying efficiency scores and positive lambda values") 
+kable(tempdf, "latex", caption = "Results of Multiple Input Multiple Output DEA 
+      displaying efficiency scores and positive lambda values", booktabs = T) %>%
+kable_styling(latex_options = c("striped", "scale_down", "repeat_header"))
+# code for kableExtra package from Zhu(2019)
 ```
 
-
-
-## Part D: Results and discussion
-
-
+It seems that with these changed inputs, Canada, Mexico and Japan remain efficient but several other countries, including Turkey, Slovenia, and Poland have become fully efficient, implying that they do a good job utilizing their teacher's hours efficiently. Greece has the highest weight applied to its graduation rate, implying that they do relatively well on this measure.
 
 # References
 
+[1] Anderson, T. R. (2019) Operations Research Using R 
+
+[2] Anderson, T. R. (2019) Data Envelopment Analysis Using R
+
+[3] Bogetoft, P., Otto, L. (2011) Benchmarking with DEA, SFS, and R. Springer. 
+
+[4] Gavurova, B., Kocisova, K., Belas, L., & Krajcik, V. (2017). Relative efficiency of government expenditure on secondary education. Journal of International Studies, 10(2), 329-343. doi:10.14254/2071-8330.2017/10-2/23
+
+[5] Zhu, H. (2019) Create Awesome LaTeX Table with knitr::kable and
+kableExtra. https://haozhu233.github.io/kableExtra/awesome_table_in_pdf.pdf 
+
 ### Data Sources
 
-All data sourced from https://data.oecd.org/
-
-Anderson, T. R. (2019) Operations Research Using R 
-
-Anderson, T. R. (2019) Data Envelopment Analysis Using R
-
-Bogetoft, P., Otto, L. (2011) Benchmarking with DEA, SFS, and R. Springer. 
+Organization for Economic Development https://data.oecd.org/
+UNESCO (add URL here)
+Teacher hours data source (add URL here)
 
 # Appendix
 
@@ -290,11 +394,13 @@ multEfficiencyTable <- tibble(
 
 ```{r inspect resmult, include = F, eval = F}
 df1<-cbind(resmult$Efficiency, resmult$Lambda)
-pander(tempdf1 <-df1 [, colSums(df1) !=0], caption = "Reesults of Single Input-Multiple Output DEA displaying efficiency scores and positive lambda values") 
+pander(tempdf1 <-df1 [, colSums(df1) !=0], 
+       caption = "Results of Single Input-Multiple Output DEA 
+       displaying efficiency scores and positive lambda values") 
 ```
 
 
-```{r multiple output plot, include = F, eval = F}
+```{r multiple dea plot, include = F, eval = F}
 dea.plot(x = x, y = y, txt = dimnames(x)[[1]], GRID = T,
          xlab = "Total Spending", ylab = "Multiple PISA",
          ylim = c(1200,1600), main = "2015 OECD data DEA plot")
@@ -305,13 +411,13 @@ dea.plot(x = x, y = y, txt = dimnames(x)[[1]], GRID = T,
 
 Education has long been identified as a catalyst for human development. The rise of every civilization has coincided with a shift in attitude towards attaining and valuing knowledge, and the peak of each civilization  usually aligns with peaks in their attained knowledge. For this reason, most historical societies tried to place an emphasis in the process of individual citizens attaining the available knowledge to maximize  an individual's contributions to society. This process, however, was informal and was only available to a select few.
 
-After the renaissance period, the approach to education process was far or less standarized. Societies realized the need to produce educated individuals that can tackle new problems faced by society and governments throughout the world, started to shape their educational curriculum's based on the country's need. Today, most countries have curricula that are directly based on this but adapted to fit their national goals and cultural values. The focus and the mission of each country's educational administration directly reflects their future asirations and social, political, and economical goals.
+After the renaissance period, the approach to education process was far or less standarized. Societies realized the need to produce educated individuals that can tackle new problems faced by society and governments throughout the world, started to shape their educational curriculum's based on the country's need. Today, most countries have curricula that are directly based on this but adapted to fit their national goals and cultural values. The focus and the mission of each country's educational administration directly reflects their future aspirations and social, political, and economical goals.
 
-For example, the United States Department of Education's mission statement includes "to promote student achievement and preparation for global competitiveness ". In germany, the Education department is grouped with research and controlled under the department of Education and Research. Their mission includes "promote education and research for they are the foundations on which we will build our future in a changing world". In mexico, the Department's goal is "to create general conditions that permit the assurance of quality education to all Mexicans". These differing mission objectives, though all noble, point out the subtle differences each society attaches to the education process.
+For example, the United States Department of Education's mission statement includes "to promote student achievement and preparation for global competitiveness." In Germany, the education department is grouped with research and controlled under the department of Education and Research. Their mission includes "promote education and research for they are the foundations on which we will build our future in a changing world". In Mexico, the department's goal is "to create general conditions that permit the assurance of quality education to all Mexicans". These differing mission objectives, though all noble, point out the subtle differences each society attaches to the education process.
 
  The subtle differences can also translate to funding policies. Currently, budgets for Education Departments around the world constitues a good percentage of each countries overall GDP. For countries within the "Organization for Economic Development" (OECD), current budgets stand between 4-8 percent of their entire GDP.  Globally, the current spending on education alone is estimated at ~5 trillion U.S dollars with this figure estimated to reach ~10 trillion dollars in the year 2030. This is a huge investment without any short term returns. For politicians whose lifespan in the political arena is limited (*Democratic Soceities*), such spending would need justification and buy in.
  
- ## Additional extra code, ok to delete if not needed for final Thursday deadline
+## Additional extra code, ok to delete if not needed for final Thursday deadline
  
  Some quick analysis of the results:
 
@@ -334,4 +440,32 @@ data[14,]
 
 
 
-Note that we're missing quite a few elements of data for tertiary graduation rate. We can see that with these changed inputs, Canada, Mexico and Japan remain efficient but several other countries, including Turkey, Slovenia, and Poland have become fully efficient, implying that they do a good job utilizing their teacher's hours efficiently. Greece has the highest weight applied to its graduation rate, implying that they do relatively well on this measure.
+Note that we're missing quite a few elements of data for tertiary graduation rate. 
+
+```{r heavily borrowed code example, eval=FALSE}
+# Rich Iannone's DiagrammR package code example from 
+# http://rich-iannone.github.io/DiagrammeR/graphviz_and_mermaid.html#mermaid
+grViz("
+digraph boxes_and_circles {
+
+  # a 'graph' statement
+  graph [overlap = true, fontsize = 10]
+
+  # several 'node' statements
+  node [shape = box,
+        fontname = Helvetica]
+  A; B; C; D; E
+
+  node [shape = circle,
+        fixedsize = true,
+        width = 0.9] // sets as circles
+  1; 2; 3; 4; 5; 6; 7; 8
+
+  # several 'edge' statements
+  A->1 B->2 B->3 B->4 C->A
+  1->D E->A 2->4 1->5 
+  E->6 4->6 5->7 6->7 3->8
+}
+")
+```
+
