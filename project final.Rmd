@@ -36,17 +36,43 @@ set.seed(123)
 
 # Abstract
 
-The paper aims to study the efficiency of the education system of Organization for Economic Development (OECD) countries and it examines efficiency by looking at the relationship between defined inputs and outputs. Data Envelopment Analysis (DEA), which is a vastly used tool for measuring efficiency, has been conducted to measure the efficiency of the education system of the countries. 
+The paper aims to study the efficiency of the education systems of Organization for Economic Development (OECD) countries and it examines efficiency by looking at the relationship between defined inputs and outputs. Data Envelopment Analysis (DEA), which is a vastly used tool for measuring efficiency, has been conducted to measure the efficiency of the education system of the countries. 
 This project is available on GitHub: https://github.com/AndeyNunes/educationDEA
 
 # Introduction
 
-The paper aims to study the efficiency of the education system of 25 countries from the Organization for Economic Development (OECD). Using Data Envelopment Analysis (DEA) to examine relative efficiency between defined inputs and outputs. 
+In the last few decades, Benchmarking as an approach has found applications in a variety of fields. The techniqe has equipped organizations with the means to evaluate their processes and compare it to the best practice of peer organizations. This has allowed them to gauge their own performance and enable them to learn and develop plans to improve aspects of their own performance and set future targets [9]. 
+In the education sector, studies utilizing benchmarking techniques are aplenty and all focus on  differing aspects. The richness of the data collected on education far exceeds that which have been thoroughly studied and published. This makes comparative studies on education data an interesting endeavor as it could reveal interesting patterns and discussion points.
+
+In this Project, our aim is to study the efficiency of the education systems of 25 countries from the Organization for Economic Development (OECD) using DEA technique. Our reasons for working with OECD countries for this study include:
+   A: All OECD countries dedicate a large % of their GDP to education spending  and all participate in the Programme for International Student Assement (PISA). 
+   B: OECD collects data on all aspects relating to education such as spending, enrollment, graduation rates, etc... and publicly provides such data to any interested parties. 
+   C: The raw data can be considered to be reliable as both PISA and OECD are independently run organizations with a track record of professionalism and trustworthy in reporting accurate data. 
+
+
 
 **What is DEA?** 
+
+There are few benchmarking technique currently in use including stochastic frontier analyis (SFA), but for purposes of this project, we will heavliy rely on DEA. Data envelopment Analysis (DEA), is a widely used benchmarking technique that was first proposed by Charnes, Cooper, and Rhodes in 1978. The technique is a nonparametric  linear programming method that compares relative efficiencies of Decision Making Units (DMUs) and provides a comprehensive measure of each DMU’s performance.  In a DEA analysis, efficiency is usually given as the weighted sum of outputs dividied by the weighted sum of the input resources [2,3,6]. 
+$$
+
+ Efficiency = Weighted \sum {outputs}/{Inputs}
+
+$$
+DEA models can be categorized as either input oriented model or as output oriented model. Input-oriented models minimize inputs while satisfying at least the given output levels, while output oriented models  maximize outputs without requiring  more of any observed input values [7].  DEA models can also be categorized according to the weight constraints. In this case, Models are subdivided into four categories. Contant returns to scale $CRS$, where the CCR model is built upon and has no constraints. Variable returns to scale $VRS$ where the sum of all lambda is set to 1. Increasing returns to scale $IRS$ where is the sum is set to greater than 1 and  Decreasing returns to scale $DRS$ having the sum being less than 1 [2]. 
+
+Returns to Scale | Envelopment Constraint
+-----------------|---------------------
+CRS    | No constraint needed
+VRS    | $\sum_{j=1}^{N^D} \lambda_j  = 1$
+IRS    | $\sum_{j=1}^{N^D} \lambda_j  \geq 1$
+DRS    | $\sum_{j=1}^{N^D} \lambda_j  \leq 1$
+
 cite Dr. Anderson's book [2] and Bogetoft and Otto (2011) [3]
 
 **What is the question we want to answer using DEA?**
+
+In this paper, our aim is to utilize output oriented variable returns to scale model to  look at the efficiences of the 25 OECD countries in terms of spending as the input and the PISA test score as our output. Our objectives is to gauge how does spending translate to the performance of students. How close or far is each country's education system operating relative to the DEA frontier. 
 
 **Where does our data come from and how are we planning to use it to answer our question?**
 
@@ -300,6 +326,16 @@ It seems that with these changed inputs, Canada, Mexico and Japan remain efficie
 
 [5] Zhu, H. (2019) Create Awesome LaTeX Table with knitr::kable and
 kableExtra. https://haozhu233.github.io/kableExtra/awesome_table_in_pdf.pdf 
+
+[6] John D. Lamb, Kai-Hong Tee, Data envelopment analysis models of investment funds,  European Journal of Operational Research, Volume 216, Issue 3, 2012, Pages 687-696
+
+[7]“Data Envelopment Analysis Explained.” Service Productivity Management: Improving Service Performance Using Data Envelopment Analysis (DEA), by H. David. Sherman and Joe Zhu, Springer Science, 2006.
+[8] data envelopment analysis, YOng bae Ji and Choonjoo Lee
+
+[9]José L. Ruiz, José V. Segura, Inmaculada Sirvent,
+Benchmarking and target setting with expert preferences: An application to the evaluation of educational performance of Spanish universities,
+European Journal of Operational Research,
+Volume 242, Issue 
 
 ### Data Sources
 
