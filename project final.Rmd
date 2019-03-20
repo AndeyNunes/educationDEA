@@ -167,6 +167,7 @@ row.names(y) <- DEAdata$Countries # output labels
 
 # output oriented model with variable returns to scale
 ressingle <- DeaMultiplierModel(x, y, rts = "vrs", orientation = "output") 
+
 ```
 
 
@@ -292,7 +293,10 @@ kable_styling(latex_options = "striped", "repeat_header")
 # code for kableExtra package from Zhu(2019)
 ```
 
+Mexico, Greece, Canada, Japan are 100% efficient. Slovakia is the least efficient.
+Mexico has the highest output weightage followed by Turkey. The target of performance for Turkey (w.r.t Mexico) is Mexico scaled down by a factor of 0.0576.
 
+The lambda values of Japan against other countries ranges from 0 to 1. The countries with 0 lambda values (Canada, Chile, Greece, Hungary, Mexico, Turkey lie on or close to the efficiency frotier) cannot be compared with Japan. Austria, Luxembourg, Netherlands, Norway and U.S. have lambda values of 1 meaning the output of these countries cannot be scaled higher than Japan for the same level of input to achieve 100% efficiency. The input values (Spending per student) of these countries are already much higher compared to Japan. 
 
 ## Multiple input - output results
 
