@@ -141,7 +141,8 @@ ggsave("single output DEA.png")
 ```
 
 ## Part B: 
-Run a DEA with a single input, but multiple outputs:
+Run a DEA with multiple inputs, and multiple outputs:
+
 ```{r runmultipledea}
 #this is single input and multiple output
 y <- DEAdata %>% select(SciencePISA, ReadingPISA, MathematicsPISA) ## output
@@ -186,7 +187,7 @@ ggplot(DEAdata, aes(x = Total.Spending, y  = multPISA)) +
    theme_minimal() +
    ggtitle("DEA plot of 2015 OECD Countries",
            subtitle = "Multiple Education Scores by Total Spending")
-ggsave("multiple output DEA.png")
+# ggsave("multiple output DEA.png")
 ```
 
 
