@@ -54,9 +54,10 @@ In this Project, our aim is to study the efficiency of the education systems of 
 **What is DEA?** 
 
 There are few benchmarking technique currently in use including stochastic frontier analyis (SFA), but for purposes of this project, we will heavliy rely on DEA. Data envelopment Analysis (DEA), is a widely used benchmarking technique that was first proposed by Charnes, Cooper, and Rhodes in 1978. The technique is a nonparametric  linear programming method that compares relative efficiencies of Decision Making Units (DMUs) and provides a comprehensive measure of each DMU’s performance.  In a DEA analysis, efficiency is usually given as the weighted sum of outputs dividied by the weighted sum of the input resources [2,3,6]. 
+
 $$
 
- Efficiency = Weighted \sum {outputs}/{Inputs}
+\text{Efficiency} = \text{Weighted} \sum \frac{outputs}{inputs}
 
 $$
 DEA models can be categorized as either input oriented model or as output oriented model. Input-oriented models minimize inputs while satisfying at least the given output levels, while output oriented models  maximize outputs without requiring  more of any observed input values [7].  DEA models can also be categorized according to the weight constraints. In this case, Models are subdivided into four categories. Contant returns to scale $CRS$, where the CCR model is built upon and has no constraints. Variable returns to scale $VRS$ where the sum of all lambda is set to 1. Increasing returns to scale $IRS$ where is the sum is set to greater than 1 and  Decreasing returns to scale $DRS$ having the sum being less than 1 [2]. 
@@ -125,7 +126,7 @@ Our DEA model is based on output-orientation because the focus of the model is o
 
 The basic DEA model is based on an assumption of constant returns to scale. This means that efficient output with a given input can be scaled up or down in a linear or constant rate. Anderson describes this as exhibiting no limit to how big an operation can get with the ratio of input, whereas often in reality, there are structural differnces that inhibit such behavior. [2] The DEA model in our study is based on variable returns to scale (VRS) on the nature of the inputs and outputs. With VRS specified, input can scale up or down, but the output may not scale up or down by the same amount. [3] In fact in the case of test scores, there is an upper limit on the output.
 
-Consider  $n$ number of education system $DMUj$  which consumes $x_{i,j}$ inputs and produce $y_{r,j}$ output. The education system operates in variable returns to scale. So this output oriented model can be expressed by a linear algebric model where the objective will be to maximize the efficiency scores of _j_ education system. The efficiency scores can be defined by $\phi$
+Consider  $n$ number of education system $DMU_j$  which consumes $x_{i,j}$ inputs and produce $y_{r,j}$ output. The education system operates in variable returns to scale. So this output oriented model can be expressed by a linear algebric model where the objective will be to maximize the efficiency scores of _j_ education system. The efficiency scores can be defined by $\phi$
 
 
 
