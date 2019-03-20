@@ -103,9 +103,7 @@ As our goal is to evaluate the efficiency of the country's education system, we 
 
 Our project looks first at a single input of Total Spending per student and single output of average PISA score. We then expand on the model by including additional input of Total Hours teachers spend and an additional output, tertiary graduation rate, along with the more granualar PISA scores for a multiple input - multiple output model.
 
-Data was obtained from secondary sources. Data on PISA scores were obtained from OECD website. Data on public education spending per student and tertiary graduation rate were obtained from UNESCO website. Data on teaching hours were collected from ....... 
-
-> SITE ALL DATA SOURCES IN REFERENCES, including links to websites
+Data was obtained from secondary sources. Data on PISA scores and teaching hours were obtained from OECD website. Data on public education spending per student and tertiary graduation rate were obtained from UNESCO website.
 
 Summary of the data are included in the Appendix.
 
@@ -345,7 +343,7 @@ Volume 242, Issue
 
 Organization for Economic Development https://data.oecd.org/
 UNESCO (add URL here)
-Teacher hours data source (add URL here)
+Teacher hours data source https://data.oecd.org/eduresource/teaching-hours.htm
 
 # Appendix
 
