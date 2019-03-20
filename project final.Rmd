@@ -128,33 +128,7 @@ The discussed methodology has been used to perform two DEA model and analysis fo
 
 ## Part A: Single input, single output
 
-#### Basic DEA Model: OECD Education Efficiency for Total Spending and Test Score Average
-
-```{r single IO grViz, echo=T}
-grViz("
-digraph nicegraph {
-
-  # a 'graph' statement
-  graph [overlap = true, fontsize = 10]
-
-  # several 'node' statements
-  node [shape = rectangle, fixedsize = true, width = 1,
-        color = darkslategray]
-  Eff
-
-  node [shape = plaintext]
-  TotalSpending; AveragePISA
-
-  # 'edge' statements
-  edge [color = grey]
-  TotalSpending->Eff Eff->AveragePISA 
-}
-")
-```
-
-
-For this first part, we will set up and solve a DEA model using total educational spending per student for the input and the aggregated PISA test score average for the single output.
-
+For this first part, we will set up and solve a DEA model using total educational spending per student for the input and the aggregated PISA test score average for the single output. The input output diagram for this model is included in the Appendix.
   
 
 ```{r single output dea, echo = TRUE}
@@ -206,32 +180,7 @@ ggplot(DEAdata, aes(x = Total.Spending, y  = AveragePISA)) +
 
 ## Part B: Multiple Inputs and Outputs
 
-We're also interested in how many hours each country's teachers spend teaching per year as another input, and the tertiary graduation rate as another output. Additionally, we are also using the different science, math, and reading PISA scores that made up the `averagePISA` input from the single input single output model. 
-
-#### Multiple Input Multiple Output DEA Model of OECD Education Efficiency
-```{r multiple IO grViz, echo=T}
-grViz("
-digraph nicegraph {
-
-  # a 'graph' statement
-  graph [overlap = true, fontsize = 10]
-
-  # several 'node' statements
-  node [shape = rectangle, fixedsize = true, width = 1,
-        color = darkslategray]
-  Eff
-
-  node [shape = plaintext]
-  TotalSpending; TeachingHours; 
-  SciencePISA; ReadingPISA; MathPISA; TertGradRate
-
-  # 'edge' statements
-  edge [color = grey]
-  TotalSpending->Eff TeachingHours->Eff Eff->TertGradRate 
-  Eff->SciencePISA Eff->ReadingPISA Eff->MathPISA 
-}
-")
-```
+We're also interested in how many hours each country's teachers spend teaching per year as another input, and the tertiary graduation rate as another output. Additionally, we are also using the different science, math, and reading PISA scores that made up the `averagePISA` input from the single input single output model. The input output diagram for this model is included in the Appendix.
 
 
 Here is a model with two inputs, total educational spending per student and average teacher hours per year, and four outputs: SciencePISA, ReadingPISA, MathematicsPISA, and tertiary graduation rate.
@@ -372,6 +321,63 @@ glimpse(data)
 head(cbind(data$Countries, data$Teaching.Hours, data$Tertiary.Graduation.Rate))
 ```
 
+## Code for DEA Model Graphs
+
+For some reason the DiagrammeR graphs won't render to pdf directly, only to html (then print to pdf). They can be previewed and saved as png in RStudio IDE, which is what we did for this report.
+
+#### Single input single output DEA model
+
+![Single Input Single Output](singleIO.png)
+
+```{r single IO grViz, echo=T, eval=F}
+grViz("
+digraph nicegraph {
+
+  # a 'graph' statement
+  graph [overlap = true, fontsize = 10]
+
+  # several 'node' statements
+  node [shape = rectangle, fixedsize = true, width = 1,
+        color = darkslategray]
+  Eff
+
+  node [shape = plaintext]
+  TotalSpending; AveragePISA
+
+  # 'edge' statements
+  edge [color = grey]
+  TotalSpending->Eff Eff->AveragePISA 
+}
+")
+```
+
+#### Multiple input multiple output model
+
+![Multiple Input Multiple Output](multipleIO.png)
+
+```{r multiple IO grViz, echo=T, eval=FALSE}
+grViz("
+digraph nicegraph {
+
+  # a 'graph' statement
+  graph [overlap = true, fontsize = 10]
+
+  # several 'node' statements
+  node [shape = rectangle, fixedsize = true, width = 1,
+        color = darkslategray]
+  Eff
+
+  node [shape = plaintext]
+  TotalSpending; TeachingHours; 
+  SciencePISA; ReadingPISA; MathPISA; TertGradRate
+
+  # 'edge' statements
+  edge [color = grey]
+  TotalSpending->Eff TeachingHours->Eff Eff->TertGradRate 
+  Eff->SciencePISA Eff->ReadingPISA Eff->MathPISA 
+}
+")
+```
 
 ## Deleted sections
 
