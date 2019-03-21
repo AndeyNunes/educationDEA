@@ -88,7 +88,9 @@ There are several papers using DEA in education in the google drive. Lets just m
 
 Benchmarking using a DEA model involves measuing the relative efficiency of a Decision Making Unit (DMU), which is determined by comparing the studied unit's performance in producing output with a target. [2] In our study, DMUs are the country's education system. The objective here is to find the efficiency of this education system in making educational achievements, measured by the PISA test scores and college graduation rates, using the resources invested in the system, measured in time and money.
 
-For inputs, we considered each country's education spending per student in US dollars and the number of hours teachers spend with students. Per student data will help us to eliminate the size effect of a country with large GDP and thus large budget for education.
+Public spending on education is one of the inputs in our two DEA models. It covers direct expenditure on educational institutions as well as educational-related public subsidies given to households and administered by educational institutions. [10] It comprises spending on primary, secondary and tertiary education. Spending is shown in USD per student as per student data will help us to eliminate the size effect of a country with large GDP and thus large budget for education.
+
+In our second DEA model, we introduced another input, teaching hours. It refers to preparation time and statutory teaching time. Teaching time is the number of hours spent teaching a group or class of students according to the formal policy in the country; preparation time is the time spent preparing for teaching. [11]
 
 As our goal is to evaluate the efficiency of the country's education system, we decided to use PISA score as measumement of success. PISA is widely recognized performance yardstick to assess the competency of a country's school system. PISA focus on three segment: reading, mathematic and science. 
 
@@ -363,6 +365,9 @@ kableExtra. https://haozhu233.github.io/kableExtra/awesome_table_in_pdf.pdf
 Benchmarking and target setting with expert preferences: An application to the evaluation of educational performance of Spanish universities,
 European Journal of Operational Research,
 Volume 242, Issue 
+
+[10] OECD (2016), Public spending on education (indicator). doi: 10.1787/f99b45d0-en (Accessed on 20 March 2019)
+[11] OECD (2018), Teaching hours (indicator). doi: 10.1787/af23ce9b-en (Accessed on 20 March 2019)
 
 ### Data Sources
 
