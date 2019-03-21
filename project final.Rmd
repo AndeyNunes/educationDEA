@@ -301,10 +301,10 @@ ggplot(DEAdata, aes(x = multIn, y  = multOut)) +
 
 ## Single input - output results
 
-The average efficiency for the Total Spending yielding Average PISA score is `r mean(ressingle$Efficiency)`.
+Our observation on our single input-single output are:
 
-The table of efficiency and lambda scores indicates the following countries are output-oriented efficient units:
-> `r DEAdata$Countries[which(ressingle[[5]]==1)]`
+a. The average efficiency for the Total Spending yielding Average PISA score is `r mean(ressingle$Efficiency)`. It indicates that the overall efficiency of the studied countries education system is oeverall high.
+
 
 ```{r single output efficiency table}
 df <- cbind(ressingle$Efficiency, ressingle$Lambda)
@@ -318,16 +318,22 @@ kable_styling(latex_options = "striped", "repeat_header")
 # code for kableExtra package from Zhu(2019)
 ```
 
-Mexico, Greece, Canada, Japan are 100% efficient. Slovakia is the least efficient. Mexico has the highest output weight followed by Turkey. The target of performance for Turkey (w.r.t Mexico) is Mexico scaled down by a factor of 0.0576.
+b. The table of efficiency and lambda scores refers that the following countries have the efficiency scores of 1:
+> `r DEAdata$Countries[which(ressingle[[5]]==1)]`
 
-The lambda values of Japan against other countries ranges from 0 to 1. The countries with 0 lambda values (Canada, Chile, Greece, Hungary, Mexico, Turkey lie on or close to the efficiency frotier) cannot be compared with Japan. Austria, Luxembourg, Netherlands, Norway and U.S. have lambda values of 1 meaning the output of these countries cannot be scaled higher than Japan for the same level of input to achieve 100% efficiency. The input values (Spending per student) of these countries are already much higher compared to Japan. 
+It indicates that education systems of these countries are relatively efficient in comparison to all studied eductaion systems. So these DMUs lie in the efficient frontier as shown in the figure above. If we look at the PISA scores of all the countries, we can see that Canada and Japan achieved two of the highest scores of all subjects of PISA assessment. Interestingly, Mexico and Greece did not achieve good scores in comparison to other countries. But both of the countries spending on education per student are two of the lowest spending in our data set. So the input output ratios became higher and put them in the efficient frontier.
+
+c. Slovakia has the minimum efficient scores indicating that Slovakia's education system is the least efficient of all the countries in achieving comparable PISA assessment.
+
+d. The countries that have efficiency scores below 1 are benchmarked against a target. The target is formed by the countries with efficiency scores of 1 by scaling up the output. In our model, education system of Canada, Japan, Mexico and Greece are the benchmark for all the other countries education system. 
+
+e. Austria, Luxembourg, Netherlands, Norway and U.S. have been benchmarked against Japan. It indicates that these five counties should achieve the average PISA scores of 528.67 (average PISA score of Japan) while maintaing the current spending on education. So these countries can become relatively efficient by following Japan's spending policy and schooling system.
+
+f. The other relaively inefficient countries have been benchmarked against two countries, Canada and Japan or Canada and Greece. It indicates that by adopting a mixture of two countries spending policy and eductaion system, the inefficient countries can improve their efficiency scores and thus become relatively efficient. This benchmarking process can be explained by taking example of one of the inefficient unit.[14] Consider the education system of Chile. It has average PISA of 443. The lambda values indicated that it should be benchmarked against Canada and Greece and the weights are 31.3% and 68.7% respectively. So the reference Average PISA score for Chile is 479.015 [(31.3% of Average PISA of Canada 523.67)+ (68.7% of Average PISA of Greece 458.67)}. This reference score is higher than the actual average PISA scores of Chile by 36.015 points. So the DEA analyis refers that by following a combination of spending policy Canada and Greece, Chile can improve its average PISA score by 36.015 points and thus increase the efficiency score by (100-92.5) 7.5% points. Similar analysis can be done for all inefficient units.
 
 ## Multiple input - output results
 
 The average efficiency for the Total Spending yielding Average PISA score is `r mean(resmult$Efficiency)`.
-
-The table of efficiency and lambda scores indicates the following countries are output-oriented efficient units:
-> `r DEAdata$Countries[which(resmult[[5]]==1)]`
 
 ```{r multiple IO efficiency table}
 df <- cbind(resmult$Efficiency, resmult$Lambda)
@@ -340,7 +346,12 @@ kable_styling(latex_options = c("striped", "scale_down", "repeat_header"))
 # code for kableExtra package from Zhu(2019)
 ```
 
-It seems that with these changed inputs, Canada, Mexico and Japan remain efficient but several other countries, including Turkey, Slovenia, and Poland have become fully efficient, implying that they do a good job utilizing their teacher's hours efficiently. Greece has the highest weight applied to its graduation rate, implying that they do relatively well on this measure.
+The table of efficiency and lambda scores indicates the following countries are have efficiency scores of 1:
+> `r DEAdata$Countries[which(resmult[[5]]==1)]`
+
+The interpretation of the results of this multiple input-multiple output DEA will be similar as the above single input-single output DEA. But there is one interesting point to note here. If we look into the average efficiency score, we see that it is higher than the single input-single output DEA model. Again, in addition to the countries which have efficiency scores of 1 under single input-single output model, five more countries achieved efficiency score of 1. These results affirm the notion that adding more input and output variables increase the efficiency score. 
+
+
 
 # References
 
@@ -373,6 +384,8 @@ Volume 242, Issue
 [12] OECD (2018), PISA 2015 Results in Focus. Retrieved from OECD website: www.oecd.org/pisa
 
 [13] OECD (2019), Tertiary graduation rate (indicator). doi: 10.1787/15c523d3-en (Accessed on 20 March 2019)
+
+[14] Sherman, D. H., Zhu, j.(2013). Analyzing Performance in Service Organizations. MITSloan Management Review, Vol.54, No. 4. 
 
 
 ### Data Sources
