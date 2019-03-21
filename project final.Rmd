@@ -361,16 +361,13 @@ The interpretation of the results of this multiple input-multiple output DEA wil
 [5] Zhu, H. (2019) Create Awesome LaTeX Table with knitr::kable and
 kableExtra. https://haozhu233.github.io/kableExtra/awesome_table_in_pdf.pdf 
 
-[6] John D. Lamb, Kai-Hong Tee, Data envelopment analysis models of investment funds,  European Journal of Operational Research, Volume 216, Issue 3, 2012, Pages 687-696
+[6] J. Lamb, K.H Tee, Data envelopment analysis models of investment funds,  European Journal of Operational Research, Volume 216, Issue 3, 2012, Pages 687-696
 
-[7]“Data Envelopment Analysis Explained.” Service Productivity Management: Improving Service Performance Using Data Envelopment Analysis (DEA), by H. David. Sherman and Joe Zhu, Springer Science, 2006.
+[7]H. David. Sherman and Joe Zhu, Service Productivity Management: Improving Service Performance Using Data Envelopment Analysis (DEA), Springer Science, 2006, pages 49-89.
  
-[8] data envelopment analysis, Yong bae Ji and Choonjoo Lee
+[8] Ji, Yong-bae and Lee, Choonjoo, (2010), Data envelopment analysis, Stata Journal, 10, issue 2, p. 267-280, https://EconPapers.repec.org/RePEc:tsj:stataj:v:10:y:2010:i:2:p:267-280.
 
-[9]José L. Ruiz, José V. Segura, Inmaculada Sirvent,
-Benchmarking and target setting with expert preferences: An application to the evaluation of educational performance of Spanish universities,
-European Journal of Operational Research,
-Volume 242, Issue 
+[9]J.Ruiz, J.Segura, I.Sirvent, Benchmarking and target setting with expert preferences: An application to the evaluation of educational performance of Spanish universities,European Journal of Operational Research,Volume 242, issue 2, p. 594-605, https://EconPapers.repec.org/RePEc:eee:ejores:v:242:y:2015:i:2:p:594-605
 
 [10] OECD (2016), Public spending on education (indicator). doi: 10.1787/f99b45d0-en (Accessed on 20 March 2019)
 
