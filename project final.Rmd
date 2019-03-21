@@ -292,7 +292,7 @@ ggplot(DEAdata, aes(x = multIn, y  = multOut)) +
 # ggsave("multiple output DEA.png") # uncomment this to update the png file for the presentation
 ```
 
-# Results and discussion
+# Results 
 
 ## Single input - output results
 
@@ -346,6 +346,11 @@ The table of efficiency and lambda scores indicates the following countries are 
 
 The interpretation of the results of this multiple input-multiple output DEA will be similar as the above single input-single output DEA. But there is one interesting point to note here. If we look into the average efficiency score, we see that it is higher than the single input-single output DEA model. Again, in addition to the countries which have efficiency scores of 1 under single input-single output model, five more countries achieved efficiency score of 1. These results affirm the notion that adding more input and output variables increase the efficiency score. 
 
+#Discussion and Conclusions
+
+###Can we put write a table with with the efficiences (not the lambda's but the efficiencies) from both single and multiple output results in two columns, along with the GDP of each country, HDI, and spending per % of GDP. The articles that samira found make those correlations and i think it might a good idea to take a look at that. this is a point we can discussion
+
+###Recommendations for each country. We have lambda values for every country, we can give recommendations based on how  can each country scale its spending to achieve similar output or better. This can also be tabulated. 
 
 
 # References
