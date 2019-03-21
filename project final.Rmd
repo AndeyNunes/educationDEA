@@ -350,6 +350,21 @@ The interpretation of the results of this multiple input-multiple output DEA wil
 
 ###Can we put write a table with with the efficiences (not the lambda's but the efficiencies) from both single and multiple output results in two columns, along with the GDP of each country, HDI, and spending per % of GDP. The articles that samira found make those correlations and i think it might a good idea to take a look at that. this is a point we can discussion
 
+```{r discussiontable}
+tabledata <- data %>%
+   filter(Total.Spending > 0, # drop 0 spending and NA
+          !is.na(Teaching.Hours),
+          !is.na(Tertiary.Graduation.Rate)) %>% 
+  select(Countries, Total.Spending, Teaching.Hours, HDI, GDP, Spending.as.percentage.of.GDP)
+
+singleff<-unname(ressingle$Efficiency)
+multeff<-unname(resmult$Efficiency)
+tabledata<-cbind(tabledata, singleff, multeff)
+colnames(tabledata)<-(c("Country", "Per Student Spending","Teacher Hours" ,"HDI", "GDP", "GDP%","Efficiency 1", "Efficiency 2"))
+kable(tabledata)
+```
+
+
 ###Recommendations for each country. We have lambda values for every country, we can give recommendations based on how  can some countries scale its spending to achieve similar output or better. This can also be tabulated. 
 
 
