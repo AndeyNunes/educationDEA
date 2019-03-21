@@ -36,30 +36,31 @@ set.seed(123)
 
 # Abstract
 
-The paper aims to study the efficiency of the education systems of Organization for Economic Development (OECD) countries and it examines efficiency by looking at the relationship between defined inputs and outputs. Data Envelopment Analysis (DEA), which is a vastly used tool for measuring efficiency, has been conducted to measure the efficiency of the education system of the countries. 
+The paper aims to study the efficiency of education systems in Organization for Economic Development (OECD) countries. We examine efficiency by looking at the relationship between defined inputs and outputs. Data Envelopment Analysis (DEA), which is a widely used tool for measuring efficiency, was conducted to measure the efficiency of the education system of the countries. 
+
 This project is available on GitHub: https://github.com/AndeyNunes/educationDEA
 
 # Introduction
 
-In the last few decades, Benchmarking as an approach has found applications in a variety of fields. The techniqe has equipped organizations with the means to evaluate their processes and compare it to the best practice of peer organizations. This has allowed them to gauge their own performance and enable them to learn and develop plans to improve aspects of their own performance and set future targets [9]. 
-In the education sector, studies utilizing benchmarking techniques are aplenty and all focus on  differing aspects. The richness of the data collected on education far exceeds that which have been thoroughly studied and published. This makes comparative studies on education data an interesting endeavor as it could reveal interesting patterns and discussion points.
+In the last few decades, Benchmarking, a non-parametric evaluation approach, has found applications in a variety of fields. The technique has equipped organizations with the means to evaluate their processes and compare it to the best practice of peer organizations. This has allowed them to gauge their own performance and enable them to learn and develop plans to improve aspects of their own performance and set future targets [9]. 
 
-In this Project, our aim is to study the efficiency of the education systems of 25 countries from the Organization for Economic Development (OECD) using DEA technique. Our reasons for working with OECD countries for this study include:
-   A: All OECD countries dedicate a large % of their GDP to education spending  and all participate in the Programme for International Student Assement (PISA). 
-   B: OECD collects data on all aspects relating to education such as spending, enrollment, graduation rates, etc... and publicly provides such data to any interested parties. 
-   C: The raw data can be considered to be reliable as both PISA and OECD are independently run organizations with a track record of professionalism and trustworthy in reporting accurate data. 
+In the education sector, studies utilizing benchmarking techniques are numerous and vary widely in focus. The richness of the data collected on education far exceeds that which have been thoroughly studied and published. This makes comparative studies on education data an interesting endeavor as it could reveal interesting patterns and discussion points.
+
+In this paper, our aim is to study the efficiency of the education systems of 25 countries from the Organization for Economic Development (OECD) using DEA technique. Our reasons for working with OECD countries for this study include:
+
++ All OECD countries dedicate a percentage of their Gross Domestic Product (GDP) to education spending and all participate in the Programme for International Student Assement (PISA). 
++ OECD collects data on several aspects relating to education such as spending, enrollment, graduation rates, etc... and publicly provides such data to any interested parties. 
++ The raw data can be considered to be reliable as both PISA and OECD are independently run organizations with a track record of professionalism and trustworthy in reporting accurate data. 
 
 
+**Benchmarking with Data Envelopment Analysis (DEA)** 
 
-**What is DEA?** 
-
-There are few benchmarking technique currently in use including stochastic frontier analyis (SFA), but for purposes of this project, we will heavliy rely on DEA. Data envelopment Analysis (DEA), is a widely used benchmarking technique that was first proposed by Charnes, Cooper, and Rhodes in 1978. The technique is a nonparametric  linear programming method that compares relative efficiencies of Decision Making Units (DMUs) and provides a comprehensive measure of each DMU’s performance.  In a DEA analysis, efficiency is usually given as the weighted sum of outputs dividied by the weighted sum of the input resources [2,3,6]. 
+There are few benchmarking technique currently in use including stochastic frontier analyis (SFA), but for purposes of this project, we will heavliy rely on Data Envelopment Analysis (DEA). DEA is a widely used benchmarking technique that was first proposed by Charnes, Cooper, and Rhodes in 1978. The technique is a nonparametric  linear programming method that compares relative efficiencies of Decision Making Units (DMUs) and provides a comprehensive measure of each DMU’s performance.  In a DEA analysis, efficiency is usually given as the weighted sum of outputs dividied by the weighted sum of the input resources [2,3,6]. 
 
 $$
-
 \text{Efficiency} = \text{Weighted} \sum \frac{outputs}{inputs}
-
 $$
+
 DEA models can be categorized as either input oriented model or as output oriented model. Input-oriented models minimize inputs while satisfying at least the given output levels, while output oriented models  maximize outputs without requiring  more of any observed input values [7].  DEA models can also be categorized according to the weight constraints. In this case, Models are subdivided into four categories. Contant returns to scale $CRS$, where the CCR model is built upon and has no constraints. Variable returns to scale $VRS$ where the sum of all lambda is set to 1. Increasing returns to scale $IRS$ where is the sum is set to greater than 1 and  Decreasing returns to scale $DRS$ having the sum being less than 1 [2]. 
 
 Returns to Scale | Envelopment Constraint
@@ -69,14 +70,50 @@ VRS    | $\sum_{j=1}^{N^D} \lambda_j  = 1$
 IRS    | $\sum_{j=1}^{N^D} \lambda_j  \geq 1$
 DRS    | $\sum_{j=1}^{N^D} \lambda_j  \leq 1$
 
-cite Dr. Anderson's book [2] and Bogetoft and Otto (2011) [3]
-
-**What is the question we want to answer using DEA?**
 
 In this paper, our aim is to utilize output oriented variable returns to scale model to  look at the efficiences of the 25 OECD countries in terms of spending as the input and the PISA test score as our output. Our objectives is to gauge how does spending translate to the performance of students. How close or far is each country's education system operating relative to the DEA frontier. 
 
-**Where does our data come from and how are we planning to use it to answer our question?**
 
+# Literature Review
+
+Data Envelopment Analysis has been used to evaluate educational efficiencies in OECD countries. [5]
+
+
+
+# Methodology
+
+Benchmarking using a DEA model involves measuing the relative efficiency of a Decision Making Unit (DMU), which is determined by comparing the studied unit's performance in producing output with a target. [2] In our study, DMUs are the country's education system. The objective here is to find the efficiency of this education system in making educational achievements, measured by the PISA test scores and college graduation rates, using the resources invested in the system, measured in time and money.
+
+For inputs, we considered each country's education spending per student in US dollars and the number of hours teachers spend with students. Per student data will help us to eliminate the size effect of a country with large GDP and thus large budget for education.
+
+As our goal is to evaluate the efficiency of the country's education system, we decided to use PISA score as measumement of success. PISA is widely recognized performance yardstick to assess the competency of a country's school system. PISA focus on three segment: reading, mathematic and science. 
+
+Our project looks first at a single input of Total Spending per student and single output of average PISA score. We then expand on the model by including additional input of Total Hours teachers spend along with the more granualar PISA scores and an additional output, tertiary graduation rate, for a multiple input - multiple output model.
+
+In each case, our DEA model is based on output-orientation because the focus of the model is on improving and optimizing the output based on the input as observed in studied units. We assumed that each country has a given fund for spending on education which is influened by various factors including the GDP, education budgets, and political factors.
+
+The basic DEA model is based on an assumption of constant returns to scale. This means that efficient output with a given input can be scaled up or down in a linear or constant rate. Anderson describes this as exhibiting no limit to how big an operation can get with the ratio of input, whereas often in reality, there are structural differnces that inhibit such behavior. [2] The DEA model in our study is based on variable returns to scale (VRS) on the nature of the inputs and outputs. With VRS specified, input can scale up or down, but the output may not scale up or down by the same amount. [3] In fact in the case of test scores, there is an upper limit on the output.
+
+Consider  $n$ number of education system $DMU_j$  which consumes $x_{i,j}$ inputs and produce $y_{r,j}$ output. The education system operates in variable returns to scale. So this output oriented model can be expressed by a linear algebric model where the objective will be to maximize the efficiency scores of _j_ education system. The efficiency scores can be defined by $\phi$
+
+
+$$
+ \begin{split}
+ \begin{aligned}
+ \text{Max  }   & \phi \\
+  \text{subject to }\ & \sum_{j=1}^{n} x_{i,j}\lambda_j \leq x_{i,k} \; \forall \; i \\
+                      & \sum_{j=1}^{n} y_{r,j}\lambda_j \geq  \phi_{r,k} \; \forall \; r \\
+                      & \lambda_j \geq 0  \; \forall \; j\\
+                      & \sum_{j=1}^{n}\lambda_j=1
+  \end{aligned}
+  \end{split}
+$$
+
+
+Here, a country's education system is considered efficient if the efficeincy score  $\phi$ is 1. The country with score of 1 lies in the efficient frontier which is a linear combination of all the countries with efficiency scores of 1. The countries with scores less than 1 will be considered as relatively inefficient in comparison to the target specified by $\lambda$. The vector $\lambda$ is specific amount of a unit _j_ used in setting the target for performance for studied unit _k_. To accomodate the variable returns to scale of our studied input and output, a constarint that $\lambda$ sums up to 1 is added to the model. Also, as it is a output oriented model, the first (input) constraint will be satisfied while trying to exceed the second constraint (output) by as much possible. 
+
+
+The discussed methodology has been used to perform two DEA model and analysis for the 25 OECD countries for which we have all the data points. 
 
 ```{r load and clean data}
 data <- read.csv("OECDdata.csv", stringsAsFactors = F)
@@ -97,55 +134,9 @@ The following OECD countries were dropped from the analysis due to missing data:
 kable(table(setdiff(data[,1], DEAdata[,1])), caption = "Countries not included due to missing data")
 ```
 
-
-For inputs, we considered each country's education spending per student in US dollars and the number of hours teachers spend with students. Per student data will help us to eliminate the size effect of a country with large GDP and thus large budget for education.
-
-As our goal is to evaluate the efficiency of the country's education system, we decided to use PISA score as measumement of success. PISA is widely recognized performance yardstick to assess the competency of a country's school system. PISA focus on three segment: reading, mathematic and science. 
-
-Our project looks first at a single input of Total Spending per student and single output of average PISA score. We then expand on the model by including additional input of Total Hours teachers spend and an additional output, tertiary graduation rate, along with the more granualar PISA scores for a multiple input - multiple output model.
-
 Data was obtained from secondary sources. Data on PISA scores and teaching hours were obtained from OECD website. Data on public education spending per student and tertiary graduation rate were obtained from UNESCO website.
 
 Summary of the data are included in the Appendix.
-
-
-
-
-
-# Literature Review
-
-Data Envelopment Analysis has been used to evaluate educational efficiencies in OECD countries. [5]
-
-
-
-# Methodology
-
-In a DEA model, the efficiency of a Decision Making Unit (DMU) is actually a relative efficiency which is determined by comparing the studied unit's performance in producing output with a target. [2] In our study, DMUs are the country's education system. The objective here is to find the efficiency of this education system in making educational achievements, measured by the PISA test scores and college graduation rates, using the resources invested in the system, measured in time and money.
-
-Our DEA model is based on output-orientation because the focus of the model is on improving and optimizing the output based on the input as observed in studied units. We assumed that each country has a given fund for spending on education which is influened by various factors including the GDP, education budgets, and political factors.
-
-The basic DEA model is based on an assumption of constant returns to scale. This means that efficient output with a given input can be scaled up or down in a linear or constant rate. Anderson describes this as exhibiting no limit to how big an operation can get with the ratio of input, whereas often in reality, there are structural differnces that inhibit such behavior. [2] The DEA model in our study is based on variable returns to scale (VRS) on the nature of the inputs and outputs. With VRS specified, input can scale up or down, but the output may not scale up or down by the same amount. [3] In fact in the case of test scores, there is an upper limit on the output.
-
-Consider  $n$ number of education system $DMU_j$  which consumes $x_{i,j}$ inputs and produce $y_{r,j}$ output. The education system operates in variable returns to scale. So this output oriented model can be expressed by a linear algebric model where the objective will be to maximize the efficiency scores of _j_ education system. The efficiency scores can be defined by $\phi$
-
-
-
-$$
- \begin{split}
- \begin{aligned}
- \text{Max  }   & \phi \\
-  \text{subject to }\ & \sum_{j=1}^{n} x_{i,j}\lambda_j \leq x_{i,k} \; \forall \; i \\
-                      & \sum_{j=1}^{n} y_{r,j}\lambda_j \geq  \phi_{r,k} \; \forall \; r \\
-                      & \lambda_j \geq 0  \; \forall \; j\\
-                      & \sum_{j=1}^{n}\lambda_j=1
-  \end{aligned}
-  \end{split}
-$$
-
-Here, a country's education system is considered efficient if the efficeincy score  $\phi$ is 1. The country with score of 1 lies in the efficient frontier which is a linear combination of all the countries with efficiency scores of 1. The countries with scores less than 1 will be considered as relatively inefficient in comparison to the target specified by $\lambda$. The vector $\lambda$ is specific amount of a unit _j_ used in setting the target for performance for studied unit _k_. To accomodate the variable returns to scale of our studied input and output, a constarint that $\lambda$ sums up to 1 is added to the model. Also, as it is a output oriented model, the first (input) constraint will be satisfied while trying to exceed the second constraint (output) by as much possible. 
-
-
-The discussed methodology has been used to perform two DEA model and analysis for the 25 OECD countries for which we have all the data points. 
 
 
 
