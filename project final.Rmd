@@ -92,7 +92,7 @@ Public spending on education is one of the inputs in our two DEA models. It cove
 
 In our second DEA model, we introduced another input, teaching hours. It refers to preparation time and statutory teaching time. Teaching time is the number of hours spent teaching a group or class of students according to the formal policy in the country; preparation time is the time spent preparing for teaching. [11]
 
-As our goal is to evaluate the efficiency of the country's education system, we decided to use PISA score as measumement of success. PISA is widely recognized performance yardstick to assess the competency of a country's school system. PISA focus on three segment: reading, mathematic and science. 
+As our goal is to evaluate the efficiency of the country's education system, we decided to use PISA score as measurement of success. PISA is widely recognized performance yardstick to assess the competency of a country's school system. PISA assesses the extent to which 15-year-old students, near the end of their compulsory education, have acquired key knowledge and skills that are essential for full participation in modern societies. [12] The assessment focuses on three core school subject: reading, mathematics and science. Another output, tertiary graduation rate, is incorporated in our second DEA model. Tertiary graduation rate represents the estimated percentage of people who will graduate in tertiary education over their lifetime. [13]
 
 Our project looks first at a single input of Total Spending per student and single output of average PISA score. We then expand on the model by including additional input of Total Hours teachers spend along with the more granualar PISA scores and an additional output, tertiary graduation rate, for a multiple input - multiple output model.
 
@@ -367,7 +367,13 @@ European Journal of Operational Research,
 Volume 242, Issue 
 
 [10] OECD (2016), Public spending on education (indicator). doi: 10.1787/f99b45d0-en (Accessed on 20 March 2019)
+
 [11] OECD (2018), Teaching hours (indicator). doi: 10.1787/af23ce9b-en (Accessed on 20 March 2019)
+
+[12] OECD (2018), PISA 2015 Results in Focus. Retrieved from OECD website: www.oecd.org/pisa
+
+[13] OECD (2019), Tertiary graduation rate (indicator). doi: 10.1787/15c523d3-en (Accessed on 20 March 2019)
+
 
 ### Data Sources
 
