@@ -324,11 +324,11 @@ d. The countries that have efficiency scores below 1 are benchmarked against a t
 
 e. Austria, Luxembourg, Netherlands, Norway and U.S. have been benchmarked against Japan. It indicates that these five counties should achieve the average PISA scores of 528.67 (average PISA score of Japan) while maintaining the current spending on education. So these countries can become relatively efficient by following Japan's spending policy and schooling system.
 
-f. The other relaively inefficient countries have been benchmarked against two countries, Canada and Japan or Canada and Greece. It indicates that by adopting a mixture of two countries spending policy and education system, the inefficient countries can improve their efficiency scores and thus become relatively efficient. This benchmarking process can be explained by taking example of one of the inefficient unit.[14] Consider the education system of Chile. It has average PISA of 443. The lambda values indicated that it should be benchmarked against Canada and Greece and the weights are 31.3% and 68.7% respectively. So the reference Average PISA score for Chile is 479.015 [(31.3% of Average PISA of Canada 523.67)+ (68.7% of Average PISA of Greece 458.67)}. This reference score is higher than the actual average PISA scores of Chile by 36.015 points. So the DEA analysis refers that by following a combination of spending policy Canada and Greece, Chile can improve its average PISA score by 36.015 points and thus increase the efficiency score by (100-92.5) 7.5% points. Similar analysis can be done for all inefficient units.
+f. The other relaively inefficient countries have been benchmarked against two countries, Canada and Greece. It indicates that by adopting a mixture of two countries spending policy and education system, the inefficient countries can improve their efficiency scores and thus become relatively efficient. This benchmarking process can be explained by taking example of one of the inefficient unit.[14] Consider the education system of Chile. It has average PISA of 443. The lambda values indicated that it should be benchmarked against Canada and Greece and the weights are 31.3% and 68.7% respectively. So the reference Average PISA score for Chile is 479.015 (31.3% of Average PISA of Canada 523.67)+ (68.7% of Average PISA of Greece 458.67). This reference score is higher than the actual average PISA scores of Chile by 36.015 points. So the DEA analysis refers that by following a combination of spending policy Canada and Greece, Chile can improve its average PISA score by 36.015 points and thus increase the efficiency score by (100-92.5) 7.5% points. Similar analysis can be done for all inefficient units.
 
 ## Multiple input - output results
 
-The average efficiency for the Total Spending yielding Average PISA score is `r mean(resmult$Efficiency)`.
+The average efficiency for the Total Spending & Total Hours yielding multiple PISA scores & tertiary graduation rates is `r mean(resmult$Efficiency)`.
 
 ```{r multiple IO efficiency table}
 df <- cbind(resmult$Efficiency, resmult$Lambda)
@@ -344,13 +344,13 @@ kable_styling(latex_options = c("striped", "scale_down", "repeat_header"))
 The table of efficiency and lambda scores indicates the following countries are have efficiency scores of 1:
 > `r DEAdata$Countries[which(resmult[[5]]==1)]`
 
-The interpretation of the results of this multiple input-multiple output DEA will be similar as the above single input-single output DEA. But there is one interesting point to note here. If we look into the average efficiency score, we see that it is higher than the single input-single output DEA model. Again, in addition to the countries which have efficiency scores of 1 under single input-single output model, five more countries achieved efficiency score of 1. These results affirm the notion that adding more input and output variables increase the efficiency score. 
+The interpretation of the results of this multiple input-multiple output DEA will be similar as the above single input-single output DEA. But there is one interesting point to note here. If we look into the average efficiency score, we see that it is higher than the single input-single output DEA model. Again, in addition to the countries which have efficiency scores of 1 under single input-single output model, five more countries achieved efficiency score of 1. These results affirm the notion that adding more input and output variables increase the efficiency score. However, there is a limit to the usefulness of adding more inputs because it will always improve efficiency scores (but won't harm the poorer performers scores).
 
-#Discussion and Conclusions
+# Discussion and Conclusions
 
 ###Can we put write a table with with the efficiences (not the lambda's but the efficiencies) from both single and multiple output results in two columns, along with the GDP of each country, HDI, and spending per % of GDP. The articles that samira found make those correlations and i think it might a good idea to take a look at that. this is a point we can discussion
 
-###Recommendations for each country. We have lambda values for every country, we can give recommendations based on how  can each country scale its spending to achieve similar output or better. This can also be tabulated. 
+###Recommendations for each country. We have lambda values for every country, we can give recommendations based on how  can some countries scale its spending to achieve similar output or better. This can also be tabulated. 
 
 
 # References
@@ -366,13 +366,13 @@ The interpretation of the results of this multiple input-multiple output DEA wil
 [5] Zhu, H. (2019) Create Awesome LaTeX Table with knitr::kable and
 kableExtra. https://haozhu233.github.io/kableExtra/awesome_table_in_pdf.pdf 
 
-[6] J. Lamb, K.H Tee, Data envelopment analysis models of investment funds,  European Journal of Operational Research, Volume 216, Issue 3, 2012, Pages 687-696
+[6] Lamb, J., Tee,K.H. (2012) Data envelopment analysis models of investment funds.  European Journal of Operational Research, Volume 216, Issue 3, Pages 687-696
 
-[7]H. David. Sherman and Joe Zhu, Service Productivity Management: Improving Service Performance Using Data Envelopment Analysis (DEA), Springer Science, 2006, pages 49-89.
+[7] Sherman, H. D., Zhu, J. (2006) Service Productivity Management: Improving Service Performance Using Data Envelopment Analysis (DEA). Springer Science, pages 49-89.
  
-[8] Ji, Yong-bae and Lee, Choonjoo, (2010), Data envelopment analysis, Stata Journal, 10, issue 2, p. 267-280, https://EconPapers.repec.org/RePEc:tsj:stataj:v:10:y:2010:i:2:p:267-280.
+[8] Ji, Y., Lee, C. (2010) Data envelopment analysis. Stata Journal, 10, issue 2, p. 267-280, https://EconPapers.repec.org/RePEc:tsj:stataj:v:10:y:2010:i:2:p:267-280.
 
-[9]J.Ruiz, J.Segura, I.Sirvent, Benchmarking and target setting with expert preferences: An application to the evaluation of educational performance of Spanish universities,European Journal of Operational Research,Volume 242, issue 2, p. 594-605, https://EconPapers.repec.org/RePEc:eee:ejores:v:242:y:2015:i:2:p:594-605
+[9] Ruiz, J., Segura,J., Sirvent,I. (2015) Benchmarking and target setting with expert preferences: An application to the evaluation of educational performance of Spanish universities. European Journal of Operational Research,Volume 242, issue 2, p. 594-605, https://EconPapers.repec.org/RePEc:eee:ejores:v:242:y:2015:i:2:p:594-605
 
 [10] OECD (2016), Public spending on education (indicator). doi: 10.1787/f99b45d0-en (Accessed on 20 March 2019)
 
@@ -382,7 +382,7 @@ kableExtra. https://haozhu233.github.io/kableExtra/awesome_table_in_pdf.pdf
 
 [13] OECD (2019), Tertiary graduation rate (indicator). doi: 10.1787/15c523d3-en (Accessed on 20 March 2019)
 
-[14] Sherman, D. H., Zhu, j.(2013). Analyzing Performance in Service Organizations. MITSloan Management Review, Vol.54, No. 4. 
+[14] Sherman, D. H., Zhu, J.(2013). Analyzing Performance in Service Organizations. MITSloan Management Review, Vol.54, No. 4. 
 
 
 ### Data Sources
