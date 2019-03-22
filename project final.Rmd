@@ -38,13 +38,15 @@ options(digits = 3, scipen = 999)
 
 set.seed(123)
 ```
+
+
 # Executive Summary
 
-Benchmarking is a non-parametric evaluation approach that allows the organizations to evaluate their own performances and to develop effective plans to improve accordingly. Education sector also has numerous studies that uses benchmarking techniques. The paper aims to study the efficiency of education systems in Organization for Economic Development (OECD) countries by using a benchmarking technique, data envelopement analysis (DEA).
+Benchmarking is a non-parametric evaluation approach that allows organizations to evaluate their own performances and develop effective plans to improve accordingly. This paper aims to study the efficiency of education systems in the Organization for Economic Development (OECD) countries by using a benchmarking technique, data envelopement analysis (DEA).
 
 DEA is a nonparametric linear programming method that compares relative efficiencies of Decision Making Units (DMUs) and provides a comprehensive measure of each DMU’s performance.  In our study, DMUs are the country's education system. The objective here is to find the efficiency of the education system in making educational achievements using the resources invested in the system, measured in time and money. Two DEA models, single input-single output and multiple input-multiple output, have been analyzed in fulfilling the objective.
 
-To measure educational achievement, we took PISA scores as a output to the DEA model. PISA is widely recognized performance yardstick to assess the competency of a country's school system. In addition to this, tertiary graduation rate is introduced in multiple output model which refers to the estimated percentage of people who will graduate in tertiary education over their lifetime. For inputs, we considered public spending on education per person that covers direct expenditure on educational institutions as well as educational-related public subsidies given to households and administered by educational institutions. Another output, teaching hours, is also incorporated in the multiple output model . We followed output orientation with variable returns to scale for both the models.
+To measure educational achievement, we took PISA scores as an output to the DEA model. PISA is widely recognized performance yardstick to assess the competency of a country's school system. In addition to this, tertiary graduation rate is introduced in multiple output model which refers to the estimated percentage of people who will graduate in tertiary education over their lifetime. For inputs, we considered public spending on education per person that covers direct expenditure on educational institutions as well as educational-related public subsidies given to households and administered by educational institutions. Another output, teaching hours, is also incorporated in the multiple output model . We followed output orientation with variable returns to scale for both the models.
 
 The results of single input-single output model indicated that the education system of Canada, Japan, Greece and Mexico are relatively efficient in utilizing the education funding and thus achieving high PISA score. The countries that are relatively inefficient should adopt the spending policy of a single efficient country or a combination of two countries to achieve the desired efficiency. As we added one more input and output in addition to the ones already in single input-single output model, the multiple input-multiple output model shows improved average efficiency scores. Also, five more countries join the list of countries with efficiency score of 1. 
 
@@ -57,14 +59,14 @@ In the last few decades, Benchmarking, a non-parametric evaluation approach, has
 
 In the education sector, studies utilizing benchmarking techniques are numerous and vary widely in focus. The richness of the data collected on education far exceeds that which have been thoroughly studied and published. This makes comparative studies on education data an interesting endeavor as it could reveal interesting patterns and discussion points.
 
-In this paper, our aim is to study the efficiency of the education systems of 25 countries from the Organization for Economic Development (OECD) using DEA technique. We have several motivations for working with OECD countries. All OECD countries dedicate a percentage of their Gross Domestic Product (GDP) to education spending and all participate in the Programme for International Student Assement (PISA), a global educational assessment system. The OECD collects and publicly publishes data on several aspects relating to education such as public spending, enrollment, and graduation rates. And finally, this data is considered reliable as both PISA and OECD are independently run organizations with a track record of professionalism and trustworthy in reporting accurate data. 
+In this paper, our aim is to study the efficiency of the education systems of 25 countries from the Organization for Economic Development (OECD) using DEA technique. We have several motivations for working with OECD countries. All OECD countries dedicate a percentage of their Gross Domestic Product (GDP) to education spending and all participate in the Programme for International Student Assessment (PISA), a global educational assessment system. The OECD collects and publicly publishes data on several aspects relating to education such as public spending, enrollment, and graduation rates. And finally, this data is considered reliable as both PISA and OECD are independently run organizations with a track record of professionalism and trustworthy in reporting accurate data. 
 
-In literature, the list of studies utilizing DEA for analyzing efficiencies in the education sector are numerous. In their paper, Gavurova and co., summarize past studies utilizing the technique and their obtained results [4]. In an earlier study, afonso and aubyn, used data from 2000-2002 OECD countries and applied DEA using teacher per student ratio and time spent at school as their inputs and the PISA test scores as their output. The researchers used a two stage procedure to show that inefficiencies in spending correlate to GDP per capita and adult educational attainment [4]. Similarly, Agasisti and Dal bianco used 2006-2009 data from 20 european countries and used expenditure per student as the input and PISA test results as the output. The researchers extended their found relative efficiences and compared it to other variables such as GDP per capita, unemployment rate, etc...[4]. Gavurova and his team, used similar set up and relied on 2014 data from euopean countries. The team looked at government expenditure in secondary education as their input and PISA test results as the output. Their findings grouped countries into four categories. High spending with good results, high spending wiht low results, low spending with high results, and finally, low spending with low results [4].
+In literature, the list of studies utilizing DEA for analyzing efficiencies in the education sector are numerous. In their paper, Gavurova and co., summarize past studies utilizing the technique and their obtained results [4]. In an earlier study, afonso and aubyn, used data from 2000-2002 OECD countries and applied DEA using teacher per student ratio and time spent at school as their inputs and the PISA test scores as their output. The researchers used a two stage procedure to show that inefficiencies in spending correlate to GDP per capita and adult educational attainment [4]. Similarly, Agasisti and Dal bianco used 2006-2009 data from 20 European countries and used expenditure per student as the input and PISA test results as the output. The researchers extended their found relative efficiences and compared it to other variables such as GDP per capita, unemployment rate, etc...[4]. Gavurova and his team, used similar set up and relied on 2014 data from European countries. The team looked at government expenditure in secondary education as their input and PISA test results as the output. Their findings grouped countries into four categories. High spending with good results, high spending with low results, low spending with high results, and finally, low spending with low results [4].
 
 
 **Benchmarking with Data Envelopment Analysis (DEA)** 
 
-Data Envelopment Analysis (DEA) is just one of a few benchmarking techniques currently in use including stochastic frontier analyis (SFA). DEA is a widely used benchmarking technique that was first proposed by Charnes, Cooper, and Rhodes in 1978. The technique is a nonparametric linear programming method that compares relative efficiencies of Decision Making Units (DMUs) and provides a comprehensive measure of each DMU’s performance.  In a DEA analysis, efficiency is usually given as the weighted sum of outputs dividied by the weighted sum of the input resources [2,3,6]. 
+Data Envelopment Analysis (DEA) is just one of a few benchmarking techniques currently in use including stochastic frontier analysis (SFA). DEA is a widely used benchmarking technique that was first proposed by Charnes, Cooper, and Rhodes in 1978. The technique is a non-parametric linear programming method that compares relative efficiencies of Decision Making Units (DMUs) and provides a comprehensive measure of each DMU’s performance.  In a DEA analysis, efficiency is usually given as the weighted sum of outputs divided by the weighted sum of the input resources [2,3,6]. 
 
 $$
 \text{Efficiency} = \text{Weighted} \sum \frac{outputs}{inputs}
@@ -72,7 +74,7 @@ $$
 
 DEA models can be categorized as either input oriented or output oriented. Input-oriented models minimize inputs while satisfying at least the given output levels, while output oriented models maximize outputs without requiring more of any observed input values [7]. 
 
-DEA models can also be categorized according to the weight constraints. In this case, Models are subdivided into four categories. Contant returns to scale $CRS$, where the CCR model is built upon and has no constraints. Variable returns to scale $VRS$ where the sum of all lambda is set to 1. Increasing returns to scale $IRS$ where is the sum is set to greater than 1 and  Decreasing returns to scale $DRS$ having the sum being less than 1 [2]. 
+DEA models can also be categorized according to the weight constraints. In this case, Models are subdivided into four categories. Constant returns to scale $CRS$, where the CCR model is built upon and has no constraints. Variable returns to scale $VRS$ where the sum of all lambda is set to 1. Increasing returns to scale $IRS$ where is the sum is set to greater than 1 and  Decreasing returns to scale $DRS$ having the sum being less than 1 [2]. 
 
 Returns to Scale | Envelopment Constraint
 -----------------|---------------------
@@ -99,7 +101,7 @@ Our project looks first at a single input of Total Spending per student and sing
 
 In each case, our DEA model is based on output-orientation because the focus of the model is on improving and optimizing the output based on the input as observed in studied units. We assumed that each country has a given fund for spending on education which is influenced by various factors including the GDP, education budgets, and political factors.
 
-The basic DEA model is based on an assumption of constant returns to scale. This means that efficient output with a given input can be scaled up or down in a linear or constant rate. Prof.Anderson describes this as exhibiting no limit to how big an operation can get with the ratio of input, whereas often in reality, there are structural differnces that inhibit such behavior [2]. The DEA model in our study is based on variable returns to scale (VRS) on the nature of the inputs and outputs. With VRS specified, the input can scale up or down, but the output may not scale up or down by the same amount. [3] In fact in the case of test scores, there is an upper limit on the output.
+The basic DEA model is based on an assumption of constant returns to scale. This means that efficient output with a given input can be scaled up or down in a linear or constant rate. Prof.Anderson describes this as exhibiting no limit to how big an operation can get with the ratio of input, whereas often in reality, there are structural differences that inhibit such behavior [2]. The DEA model in our study is based on variable returns to scale (VRS) on the nature of the inputs and outputs. With VRS specified, the input can scale up or down, but the output may not scale up or down by the same amount. [3] In fact in the case of test scores, there is an upper limit on the output.
 
 Consider  $n$ number of education systems $DMU_j$  which consumes $x_{i,j}$ inputs and produce $y_{r,j}$ output. The education system operates in variable returns to scale. So this output oriented model can be expressed by a linear algebraic model where the objective will be to maximize the efficiency scores of _j_ education system. The efficiency scores can be defined by $\phi$
 
@@ -149,7 +151,7 @@ Summary of the data and all modeling code chunks in the next several sections ar
 
 ## Part A: Single input, single output
 
-```{r single IO grViz, eval=F}
+```{r single IO grViz, eval=T}
 
 #![Single Input Single Output](singleIO.png)
 
@@ -221,7 +223,7 @@ ggplot(DEAdata, aes(x = Total.Spending, y  = AveragePISA)) +
 
 We are also interested in how many hours each country's teachers spend teaching per year as another input, and the tertiary graduation rate as another output. Additionally, we are also using the different science, math, and reading PISA scores that made up the `averagePISA` input from the single input single output model.
 
-```{r multiple IO grViz, eval=F}
+```{r multiple IO grViz, eval=T}
 #![Multiple Input Multiple Output](multipleIO.png)
 
 grViz("
@@ -298,7 +300,7 @@ ggplot(DEAdata, aes(x = multIn, y  = multOut)) +
 # ggsave("multiple output DEA.png") # uncomment this to update the png file for the presentation
 ```
 
-# Results 
+# Results and Discussion
 
 ## Single input - output results
 
@@ -352,9 +354,7 @@ The table of efficiency and lambda scores indicates the following countries are 
 
 The interpretation of the results of this multiple input-multiple output DEA will be similar as the above single input-single output DEA. But there is one interesting point to note here. If we look into the average efficiency score, we see that it is higher than the single input-single output DEA model. Again, in addition to the countries which have efficiency scores of 1 under single input-single output model, five more countries achieved efficiency score of 1. These results affirm the notion that adding more input and output variables increase the efficiency score. However, there is a limit to the usefulness of adding more inputs because it will always improve efficiency scores (but won't harm the poorer performers scores).
 
-# Discussion and Conclusions
-
-###Can we put write a table with with the efficiences (not the lambda's but the efficiencies) from both single and multiple output results in two columns, along with the GDP of each country, HDI, and spending per % of GDP. The articles that samira found make those correlations and i think it might a good idea to take a look at that. this is a point we can discussion
+To wrap it all up, we looked to see if  there is any trends or correlation between efficiences from the single and multiple input/output models and variables such as GDP, HDI, spending percentage per GDP. The results from this are inconclusive. For example, Japan, a country with high HDI and low spending as percent of GDP had an efficient system according to our models and similar, mexico with a high spending per GDP, and low HDI had an efficient system too. Overall, it seems like all the countries are operating near efficiency frontier. The least efficient country, slovaka, is operating at 88.1% and 90.9% of efficiency frontier in both single input/output and multiple input/output models respectively. OECD as an organization can be attirbuted to the low gap between member states as the organization has been collecting data and actively benchmarking between them to profilerate best known methods and shared learning.
 
 ```{r discussiontable}
 tabledata <- data %>%
@@ -370,8 +370,6 @@ colnames(tabledata)<-(c("Country", "Per Student Spending","Teacher Hours" ,"HDI"
 kable(tabledata)
 ```
 
-
-###Recommendations for each country. We have lambda values for every country, we can give recommendations based on how  can some countries scale its spending to achieve similar output or better. This can also be tabulated. 
 
 
 # References
@@ -490,7 +488,7 @@ For some reason the DiagrammeR graphs won't render to pdf directly, only to html
 
 It turns out these grViz objects don't play nice rendering to pdf. They are much nicer looking/behaving in html.
 
-```{r Appendix single IO grViz, echo=T, eval=F}
+```{r Appendix single IO grViz, echo=T, eval=T}
 
 grViz("
 digraph nicegraph {
