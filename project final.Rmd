@@ -151,7 +151,7 @@ Summary of the data and all modeling code chunks in the next several sections ar
 
 ## Part A: Single input, single output
 
-```{r single IO grViz, eval=T}
+```{r single IO grViz, eval=F}
 
 #![Single Input Single Output](singleIO.png)
 
@@ -223,7 +223,7 @@ ggplot(DEAdata, aes(x = Total.Spending, y  = AveragePISA)) +
 
 We are also interested in how many hours each country's teachers spend teaching per year as another input, and the tertiary graduation rate as another output. Additionally, we are also using the different science, math, and reading PISA scores that made up the `averagePISA` input from the single input single output model.
 
-```{r multiple IO grViz, eval=T}
+```{r multiple IO grViz, eval=F}
 #![Multiple Input Multiple Output](multipleIO.png)
 
 grViz("
@@ -488,7 +488,7 @@ For some reason the DiagrammeR graphs won't render to pdf directly, only to html
 
 It turns out these grViz objects don't play nice rendering to pdf. They are much nicer looking/behaving in html.
 
-```{r Appendix single IO grViz, echo=T, eval=T}
+```{r Appendix single IO grViz, echo=T, eval=F}
 
 grViz("
 digraph nicegraph {
