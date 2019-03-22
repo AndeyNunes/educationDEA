@@ -142,7 +142,7 @@ setdiff(data[,1], DEAdata[,1])
 ```
 
 
-Data was obtained from secondary sources. Data on PISA scores and teaching hours were obtained from OECD website. Data on public education spending per student and tertiary graduation rate were obtained from UNESCO website. **Somebody please include the links in the references and then put the numbers in brackets after the sentences here**
+Data was obtained from secondary sources. Data on PISA scores and teaching hours were obtained from OECD website. Data on public education spending per student and tertiary graduation rate were obtained from UNESCO website [10-13].
 
 Summary of the data and all modeling code chunks in the next several sections are included in the Appendix.
 
@@ -159,7 +159,7 @@ grViz("
 digraph nicegraph {
 
   # a 'graph' statement
-  graph [overlap = true, fontsize = 10]
+  graph [overlap = true, fontsize = 4]
 
   # several 'node' statements
   node [shape = rectangle, fixedsize = true, width = 1,
@@ -230,7 +230,7 @@ grViz("
 digraph nicegraph {
 
   # a 'graph' statement
-  graph [overlap = true, fontsize = 10]
+  graph [overlap = true, fontsize = 4]
 
   # several 'node' statements
   node [shape = rectangle, fixedsize = true, width = 1,
