@@ -40,13 +40,13 @@ set.seed(123)
 ```
 # Executive Summary
 
-Benchmarking, is a non-parametric evaluation approach that allow the organization to evaluate their own performance and to develop effective plans to improve. Education sector also has numerous studies that uses benchmarking techniques. The paper aims to study the efficiency of education systems in Organization for Economic Development (OECD) countries by using a benchmarking technique, data envelopement analysis (DEA).
+Benchmarking is a non-parametric evaluation approach that allows the organizations to evaluate their own performances and to develop effective plans to improve accordingly. Education sector also has numerous studies that uses benchmarking techniques. The paper aims to study the efficiency of education systems in Organization for Economic Development (OECD) countries by using a benchmarking technique, data envelopement analysis (DEA).
 
-DEA is a nonparametric linear programming method that compares relative efficiencies of Decision Making Units (DMUs) and provides a comprehensive measure of each DMU’s performance.  In our study, DMUs are the country's education system. The objective here is to find the efficiency of this education system in making educational achievements using the resources invested in the system, measured in time and money. Two DEA model, single input-single output and multiple input-multiple output models have been analyzed in fulfilling the objective.
+DEA is a nonparametric linear programming method that compares relative efficiencies of Decision Making Units (DMUs) and provides a comprehensive measure of each DMU’s performance.  In our study, DMUs are the country's education system. The objective here is to find the efficiency of the education system in making educational achievements using the resources invested in the system, measured in time and money. Two DEA models, single input-single output and multiple input-multiple output, have been analyzed in fulfilling the objective.
 
 To measure educational achievement, we took PISA scores as a output to the DEA model. PISA is widely recognized performance yardstick to assess the competency of a country's school system. In addition to this, tertiary graduation rate is introduced in multiple output model which refers to the estimated percentage of people who will graduate in tertiary education over their lifetime. For inputs, we considered public spending on education per person that covers direct expenditure on educational institutions as well as educational-related public subsidies given to households and administered by educational institutions. Another output, teaching hours, is also incorporated in the multiple output model . We followed output orientation with variable returns to scale for both the models.
 
-The results of single input-single output model indicated that the education system of Canada, Japan, Greece and Mexico are relatively efficient in utilizing the education funding and thus achieving high PISA score. The countries that are relatively inefficient should follow adopt the spending policy of a single efficient country or a combination of two countries to achieve the desired efficiency. As we added one more input and output in addition to the ones already in single input-single output model, the multiple input-multiple output model shows improved average efficiency scores. Also, five more countries join the list of countries with efficiency score of 1. 
+The results of single input-single output model indicated that the education system of Canada, Japan, Greece and Mexico are relatively efficient in utilizing the education funding and thus achieving high PISA score. The countries that are relatively inefficient should adopt the spending policy of a single efficient country or a combination of two countries to achieve the desired efficiency. As we added one more input and output in addition to the ones already in single input-single output model, the multiple input-multiple output model shows improved average efficiency scores. Also, five more countries join the list of countries with efficiency score of 1. 
 
 
 This project is available on GitHub: https://github.com/AndeyNunes/educationDEA
@@ -405,12 +405,6 @@ kableExtra. https://haozhu233.github.io/kableExtra/awesome_table_in_pdf.pdf
 
 [14] Sherman, D. H., Zhu, J.(2013). Analyzing Performance in Service Organizations. MITSloan Management Review, Vol.54, No. 4. 
 
-
-### Data Sources
-
-Organization for Economic Development https://data.oecd.org/
-UNESCO (add URL here)
-Teacher hours data source https://data.oecd.org/eduresource/teaching-hours.htm
 
 # Appendix
 
